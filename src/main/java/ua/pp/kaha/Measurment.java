@@ -11,7 +11,8 @@ public class Measurment {
     public Measurment() {
     }
 
-    public Measurment(int waist, int weight) {
+    public Measurment(int userId, int waist, int weight) {
+        this.userId = userId;
         this.waist = waist;
         this.weight = weight;
     }

@@ -1,14 +1,24 @@
 package ua.pp.kaha;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by skokhanenko on 28.10.2016.
  */
-public class User {
+@Entity
+@Table(name = "USERS")
+public class User implements Serializable {
+    @Id
     private int id;
     private String name;
+
+    @Transient
     private List<Measurment> measurments = new ArrayList<Measurment>();
 
     public User() {

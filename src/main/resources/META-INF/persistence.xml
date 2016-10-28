@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="windows-1251"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <persistence-unit name="jpa-test">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <class>ua.pp.kaha.User</class>
+
+
+        <properties>
+            <property name="hibernate.dialect" value="com.enigmabridge.hibernate.dialect.SQLiteDialect" />
+            <!--<property name="hibernate.hbm2ddl.auto" value = "create"/>-->
+            <property name="hibernate.show_sql" value = "true"/>
+            <property name="hibernate.format_sql" value = "true"/>
+            <property name="current_session_context_class" value = "thread"/>
+            <property name="hibernate.bytecode.use_reflection_optimizer" value="false" />
+            <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
+            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/SKokhanenko/Documents/GitHub/jpa/test.db" />
+        </properties>
+    </persistence-unit>
+</persistence>
