@@ -1,9 +1,6 @@
 package ua.pp.kaha;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +9,11 @@ import java.util.List;
  * Created by skokhanenko on 28.10.2016.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "Users")
 public class User implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UsersGen")
+    @TableGenerator(name = "UsersGen", table = "sqlite_sequence", allocationSize = 1, valueColumnName = "seq", pkColumnName = "name")
     private int id;
     private String name;
 

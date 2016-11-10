@@ -2,31 +2,45 @@ package ua.pp.kaha;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by skokhanenko on 28.10.2016.
  */
 public class Main {
     private static final String PERSISTENT_UNIT_NAME = "jpa-test";
+    private static EntityManager em;
+    private static EntityManagerFactory emf;
 
-    public static void main(String[] args) {
-        EntityManager em;
+    static {
         try {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
+            emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
             em = emf.createEntityManager();
         } catch (Throwable ex) {
             throw new ExceptionInInitializerError(ex);
         }
-        User user = em.find(User.class, 1);
-        user.addMeasurment(new Measurment(user.getId(),1,2));
-        user.addMeasurment(new Measurment(user.getId(),1,3));
+    }
 
-        User user1 = new User();
-        user1.setName("ololo");
-        em.persist(user1);
-        System.out.print("User1 id is " + user1.getId() );
+    public static void main(String[] args) {
+        Set<String> set = new HashSet<String>();
+        Arrays.asList(1,2,3);
+
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        for (int i=0; i < 5; i++) {
+            User user = new User();
+            user.setName("ololo " + i);
+            em.persist(user);
+        }
+        em.flush();
+        transaction.commit();
         em.close();
+        emf.close();
 
     }
 }
