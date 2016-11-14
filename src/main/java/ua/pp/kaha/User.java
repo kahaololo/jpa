@@ -3,6 +3,7 @@ package ua.pp.kaha;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +18,9 @@ public class User implements Serializable {
     private int id;
     private String name;
 
-    @Transient
-    private List<Measurment> measurments = new ArrayList<Measurment>();
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Measurment> measurments= new ArrayList<Measurment>();
 
     public User() {
     }
@@ -48,8 +50,8 @@ public class User implements Serializable {
         this.measurments = measurments;
     }
 
-    public void addMeasurment(Measurment measurment) {
-        measurments.add(measurment);
+    public void addMeasurment(Date date, int waist, int weight) {
+        measurments.add(new Measurment(id, date, waist, weight));
     }
 
     @Override

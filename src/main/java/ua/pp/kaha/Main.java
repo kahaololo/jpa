@@ -4,9 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 /**
  * Created by skokhanenko on 28.10.2016.
@@ -26,19 +24,16 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Set<String> set = new HashSet<String>();
-        Arrays.asList(1,2,3);
-
+        User user = em.find(User.class, 1);
+        user.addMeasurment(new Date(), 1, 4);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        for (int i=0; i < 5; i++) {
-            User user = new User();
-            user.setName("ololo " + i);
-            em.persist(user);
-        }
-        em.flush();
+        em.persist(user);
         transaction.commit();
+
+//        System.out.println(em.find(User.class, 1));
+        System.out.println(user);
         em.close();
         emf.close();
 
