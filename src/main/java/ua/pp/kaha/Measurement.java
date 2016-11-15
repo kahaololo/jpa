@@ -10,10 +10,10 @@ import java.util.Date;
  * Created by skokhanenko on 28.10.2016.
  */
 @Entity
-@Table(name = "Measurments")
-public class Measurment {
+@Table(name = "Measurements")
+public class Measurement {
     @EmbeddedId
-    private MeasurmentId measurmentId;
+    private MeasurementId measurementId;
 
     @Column(nullable = false)
     private int waist;
@@ -21,21 +21,21 @@ public class Measurment {
     @Column(nullable = false)
     private int weight;
 
-    public Measurment() {
+    public Measurement() {
     }
 
-    public Measurment(int userId, Date date, int waist, int weight) {
-        this.measurmentId = new MeasurmentId(userId, date);
+    public Measurement(int userId, Date date, int waist, int weight) {
+        this.measurementId = new MeasurementId(userId, date);
         this.waist = waist;
         this.weight = weight;
     }
 
-    public MeasurmentId getMeasurmentId() {
-        return measurmentId;
+    public MeasurementId getMeasurementId() {
+        return measurementId;
     }
 
-    public void setMeasurmentId(MeasurmentId measurmentId) {
-        this.measurmentId = measurmentId;
+    public void setMeasurementId(MeasurementId measurementId) {
+        this.measurementId = measurementId;
     }
 
     public int getWaist() {
@@ -56,8 +56,8 @@ public class Measurment {
 
     @Override
     public String toString() {
-        return "Measurment{" +
-                "measurmentId=" + measurmentId +
+        return "Measurement{" +
+                "measurementId=" + measurementId +
                 ", waist=" + waist +
                 ", weight=" + weight +
                 '}';

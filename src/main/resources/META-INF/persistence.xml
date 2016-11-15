@@ -15,7 +15,7 @@
             <property name="current_session_context_class" value = "thread"/>
             <property name="hibernate.bytecode.use_reflection_optimizer" value="false" />
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
-            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/SKokhanenko/Documents/GitHub/jpa/test.db" />
+            <property name="hibernate.connection.url" value="jdbc:sqlite:${$project.home}test.db" />
         </properties>
     </persistence-unit>
 </persistence>

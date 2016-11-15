@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by skokhanenko on 14.11.2016.
  */
 @Embeddable
-public class MeasurmentId implements Serializable {
+public class MeasurementId implements Serializable {
     @Column(name = "user_id")
     private int userId;
 
@@ -19,10 +19,10 @@ public class MeasurmentId implements Serializable {
     @Temporal(value = TemporalType.DATE)
     private Date date;
 
-    public MeasurmentId() {
+    public MeasurementId() {
     }
 
-    public MeasurmentId(int userId, Date date) {
+    public MeasurementId(int userId, Date date) {
         this.userId = userId;
         this.date = date;
     }
@@ -48,7 +48,7 @@ public class MeasurmentId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MeasurmentId that = (MeasurmentId) o;
+        MeasurementId that = (MeasurementId) o;
 
         if (userId != that.userId) return false;
         if (!date.equals(that.date)) return false;
@@ -65,7 +65,7 @@ public class MeasurmentId implements Serializable {
 
     @Override
     public String toString() {
-        return "MeasurmentId{" +
+        return "MeasurementId{" +
                 "userId=" + userId +
                 ", date=" + date +
                 '}';

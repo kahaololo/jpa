@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         User user = em.find(User.class, 1);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//        user.getMeasurments().get(0).setWeight(111);
+//        user.getMeasurements().get(0).setWeight(111);
 //        user.addMeasurment(sdf.parse("02-11-2016"), 1, 4);
 
         EntityTransaction transaction = em.getTransaction();

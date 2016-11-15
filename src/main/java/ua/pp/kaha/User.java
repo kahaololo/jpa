@@ -20,7 +20,7 @@ public class User implements Serializable {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
-    private List<Measurment> measurments= new ArrayList<Measurment>();
+    private List<Measurement> measurements = new ArrayList<Measurement>();
 
     public User() {
     }
@@ -42,16 +42,16 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public List<Measurment> getMeasurments() {
-        return measurments;
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 
-    public void setMeasurments(List<Measurment> measurments) {
-        this.measurments = measurments;
+    public void setMeasurements(List<Measurement> measurements) {
+        this.measurements = measurements;
     }
 
     public void addMeasurment(Date date, int waist, int weight) {
-        measurments.add(new Measurment(id, date, waist, weight));
+        measurements.add(new Measurement(id, date, waist, weight));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", measurments=" + measurments +
+                ", measurements=" + measurements +
                 '}';
     }
 }
