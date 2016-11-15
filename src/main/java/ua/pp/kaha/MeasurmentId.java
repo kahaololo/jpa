@@ -2,6 +2,8 @@ package ua.pp.kaha;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +14,9 @@ import java.util.Date;
 public class MeasurmentId implements Serializable {
     @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "dt")
+    @Temporal(value = TemporalType.DATE)
     private Date date;
 
     public MeasurmentId() {

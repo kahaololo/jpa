@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by skokhanenko on 28.10.2016.
@@ -23,9 +23,11 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         User user = em.find(User.class, 1);
-        user.addMeasurment(new Date(), 1, 4);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//        user.getMeasurments().get(0).setWeight(111);
+//        user.addMeasurment(sdf.parse("02-11-2016"), 1, 4);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
