@@ -1,4 +1,4 @@
-package ua.pp.kaha;
+package ua.pp.kaha.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
