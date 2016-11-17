@@ -4,7 +4,7 @@
     <persistence-unit name="jpa-test">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <class>ua.pp.kaha.User</class>
+        <class>ua.pp.kaha.model.User</class>
 
 
         <properties>
