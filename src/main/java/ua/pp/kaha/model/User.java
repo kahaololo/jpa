@@ -18,7 +18,7 @@ public class User implements Serializable {
     private int id;
     private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Measurement> measurements = new ArrayList<Measurement>();
 
