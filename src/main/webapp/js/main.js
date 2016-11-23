@@ -2,7 +2,7 @@ $(function() {
 
     //var login = getCookie("login");
 
-    showUserChart("ololo");
+    showUserChart("Kaha");
 });
 
 

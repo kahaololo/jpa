@@ -4,15 +4,14 @@ import ua.pp.kaha.model.Measurement;
 import ua.pp.kaha.model.User;
 
 import javax.persistence.*;
-import javax.transaction.Transaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by skokhanenko on 17.11.2016.
@@ -48,7 +47,7 @@ public class Service {
     @GET
     @Path("/put/measurement")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putMeasurment() {
+    public Response putMeasurement() {
         Map<String, String> rs = new HashMap<String, String>();
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-test");
@@ -56,8 +55,14 @@ public class Service {
 
 
 
-        User user = em.find(User.class, 0);
-        user.addMeasurment(new Date(), 1,2);
+        User user = em.find(User.class, 1);
+        Query query = em.createQuery("SELECT max(m.measurementId.date) FROM Measurement m WHERE m.measurementId.userId = :userId");
+        query.setParameter("userId", user.getId());
+        Date maxDate = (Date) query.getSingleResult();
+        Date nextDate = new Date(maxDate.getTime() + (1000 * 60 * 60 * 24));
+        int weight = ThreadLocalRandom.current().nextInt(80, 100);
+        int waist = ThreadLocalRandom.current().nextInt(80, 90);
+        user.addMeasurment(nextDate, weight, waist);
 
         EntityTransaction tx = em.getTransaction();
         tx.begin();
