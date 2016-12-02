@@ -1,0 +1,15 @@
+#container{
+    max-width: 800px;
+    max-height: 600px;
+}
+
+img.icon{
+    cursor: pointer;
+    width: 16px;
+}
+
+img.icon:active {
+    width: 15px;
+    cursor: pointer;
+}
+
