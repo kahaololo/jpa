@@ -24,8 +24,7 @@ public class Service {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMsg(@PathParam("user") String userName) throws Exception {
         List<Measurement> measurements = new ArrayList<Measurement>();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-test");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = EMFListener.createEntityManager();
 
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class);
         query.setParameter("name", userName);
@@ -39,7 +38,6 @@ public class Service {
         }
 
         em.close();
-        emf.close();
 
         return Response.status(200).entity(measurements).build();
     }
@@ -50,10 +48,7 @@ public class Service {
     public Response putMeasurement() {
         Map<String, String> rs = new HashMap<String, String>();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa-test");
-        EntityManager em = emf.createEntityManager();
-
-
+        EntityManager em = EMFListener.createEntityManager();
 
         User user = em.find(User.class, 1);
         Query query = em.createQuery("SELECT max(m.measurementId.date) FROM Measurement m WHERE m.measurementId.userId = :userId");
@@ -70,7 +65,6 @@ public class Service {
         tx.commit();
 
         em.close();
-        emf.close();
 
         rs.put("result", "200");
 

@@ -16,8 +16,7 @@
             <property name="current_session_context_class" value = "thread"/>
             <property name="hibernate.bytecode.use_reflection_optimizer" value="false" />
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />
-            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/kaha/IdeaProjects/jpa/test.db" />
-
+            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/temp/test.db" />
             <property name="c3p0.min_size" value="3" />
             <property name="c3p0.max_size" value="5" />
             <property name="c3p0.timeout" value="1800" />
