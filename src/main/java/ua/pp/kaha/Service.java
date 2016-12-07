@@ -4,103 +4,69 @@ import ua.pp.kaha.model.Measurement;
 import ua.pp.kaha.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by skokhanenko on 17.11.2016.
  */
 @Path ("/")
+@Produces(MediaType.APPLICATION_JSON)
 public class Service {
 
     @GET
-    @Path("/measurements")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getMsg(@QueryParam("user") String userName) throws Exception {
-        List<Measurement> measurements = new ArrayList<Measurement>();
+    @Path("/users/{userId}")
+    public Response getMsg(@PathParam("userId") int userId) throws Exception {
         EntityManager em = EMFListener.createEntityManager();
 
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.name = :name", User.class);
-        query.setParameter("name", userName);
-
-        User user;
+        User user = null;
         try {
-            user = query.getSingleResult();
-            measurements = user.getMeasurements();
+            user = em.find(User.class, userId);
         } catch (NoResultException e) {
             e.printStackTrace();
         }
 
         em.close();
 
-        return Response.status(200).entity(measurements).build();
+        return Response.status(200).entity(user).build();
     }
 
-//    @GET
-//    @Path("/put/measurement")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response putMeasurement() {
-//        Map<String, String> rs = new HashMap<String, String>();
-//
-//        EntityManager em = EMFListener.createEntityManager();
-//
-//        User user = em.find(User.class, 1);
-//        Query query = em.createQuery("SELECT max(m.measurementId.date) FROM Measurement m WHERE m.measurementId.userId = :userId");
-//        query.setParameter("userId", user.getId());
-//        Date maxDate = (Date) query.getSingleResult();
-//        Date nextDate = new Date(maxDate.getTime() + (1000 * 60 * 60 * 24));
-//        int weight = ThreadLocalRandom.current().nextInt(80, 100);
-//        int waist = ThreadLocalRandom.current().nextInt(80, 90);
-//        user.addMeasurment(nextDate, weight, waist);
-//
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        em.merge(user);
-//        tx.commit();
-//
-//        em.close();
-//
-//        rs.put("result", "200");
-//
-//        return Response.status(200).entity(rs).build();
-//    }
 
     @POST
     @Path("/measurements")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces(MediaType.APPLICATION_JSON)
-    public void addMeasurements(
-            @FormParam("user") String user,
-            @FormParam("measurement") Object measurement
-    ) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Map<String,String> addMeasurements(Measurement newMeasurement) {
+        Map rs = new HashMap<String,String>();
 
+        EntityManager em = EMFListener.createEntityManager();
+        Measurement measurement = em.find(Measurement.class, newMeasurement.getMeasurementId());
 
-        Map<String, String> rs = new HashMap<String, String>();
+        if (measurement == null) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
 
-//        EntityManager em = EMFListener.createEntityManager();
+            try {
+                em.persist(newMeasurement);
+                tx.commit();
+                rs.put("status", "ok");
+            } catch (Exception e) {
+                e.printStackTrace();
+                tx.rollback();
+                rs.put("errMsg", "fail during transaction");
+            }
+
+        } else {
+            rs.put("errMsg", "measurement already exists");
+            System.out.println("measurement already exists");
+        }
 //
-//        User user = em.find(User.class, 1);
-//        Query query = em.createQuery("SELECT max(m.measurementId.date) FROM Measurement m WHERE m.measurementId.userId = :userId");
-//        query.setParameter("userId", user.getId());
-//        Date maxDate = (Date) query.getSingleResult();
-//        Date nextDate = new Date(maxDate.getTime() + (1000 * 60 * 60 * 24));
-//        int weight = ThreadLocalRandom.current().nextInt(80, 100);
-//        int waist = ThreadLocalRandom.current().nextInt(80, 90);
-//        user.addMeasurment(nextDate, weight, waist);
 //
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        em.merge(user);
-//        tx.commit();
-//
-//        em.close();
-
+        em.close();
+        return rs;
     }
 }

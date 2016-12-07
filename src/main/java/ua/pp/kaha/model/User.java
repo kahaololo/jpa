@@ -3,7 +3,6 @@ package ua.pp.kaha.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public class User implements Serializable {
         this.measurements = measurements;
     }
 
-    public void addMeasurment(Date date, int waist, int weight) {
+    public void addMeasurment(long date, int waist, int weight) {
         measurements.add(new Measurement(id, date, waist, weight));
     }
 

@@ -2,10 +2,7 @@ package ua.pp.kaha.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by skokhanenko on 14.11.2016.
@@ -16,13 +13,12 @@ public class MeasurementId implements Serializable {
     private int userId;
 
     @Column(name = "dt")
-    @Temporal(value = TemporalType.DATE)
-    private Date date;
+    private long date;
 
     public MeasurementId() {
     }
 
-    public MeasurementId(int userId, Date date) {
+    public MeasurementId(int userId, long date) {
         this.userId = userId;
         this.date = date;
     }
@@ -35,23 +31,24 @@ public class MeasurementId implements Serializable {
         this.userId = userId;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MeasurementId)) return false;
 
         MeasurementId that = (MeasurementId) o;
 
+        if (date != that.date) return false;
         if (userId != that.userId) return false;
-        if (!date.equals(that.date)) return false;
 
         return true;
     }
@@ -59,7 +56,7 @@ public class MeasurementId implements Serializable {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + date.hashCode();
+        result = 31 * result + (int) (date ^ (date >>> 32));
         return result;
     }
 

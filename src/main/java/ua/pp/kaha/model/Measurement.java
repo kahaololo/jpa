@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * Created by skokhanenko on 28.10.2016.
@@ -24,7 +23,7 @@ public class Measurement {
     public Measurement() {
     }
 
-    public Measurement(int userId, Date date, int waist, int weight) {
+    public Measurement(int userId, long date, int waist, int weight) {
         this.measurementId = new MeasurementId(userId, date);
         this.waist = waist;
         this.weight = weight;
@@ -61,5 +60,22 @@ public class Measurement {
                 ", waist=" + waist +
                 ", weight=" + weight +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Measurement that = (Measurement) o;
+
+        if (!measurementId.equals(that.measurementId)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return measurementId.hashCode();
     }
 }
