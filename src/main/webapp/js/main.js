@@ -36,7 +36,6 @@ $(function() {
 
 
 function addMeasurement(that, user) {
-    that.off();
     var tr = $(that).parent().parent();
     var dateVal = $(tr).children().eq(0).children("input").val();
     var weightVal = $(tr).children().eq(1).children("input").val();
@@ -47,12 +46,12 @@ function addMeasurement(that, user) {
             date: (new Date(dateVal)).getTime(),
             userId: user.id
         },
-        weight: weightVal,
-        waist: waistVal
+        weight: parseFloat(weightVal),
+        waist: parseFloat(waistVal)
     };
 
     var request = $.ajax({
-        method: "POST",
+        method: "PUT",
         url: "/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
@@ -85,20 +84,64 @@ function removeMeasurement(that, user) {
     var tr = $(that).parent().parent();
     var i = tr.data("index");
 
-    var chart = $("#chart").highcharts();
-    chart.series[0].data[i].remove(true,true);
-    chart.series[1].data[i].remove(true,true);
+    var request = $.ajax({
+        method: "DELETE",
+        url: "/service/measurements/",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(measurementsData[i])
+    });
 
-    measurementsData.splice(i,1);
+    request.done(function (rs) {
+        if (!rs.status) {
+            console.log(rs.errMsg);
+            return false;
+        }
+        var chart = $("#chart").highcharts();
+        chart.series[0].data[i].remove(true,true);
+        chart.series[1].data[i].remove(true,true);
 
-    $("#table").empty();
-    $("#table").html(template(measurementsData));
+        measurementsData.splice(i,1);
+
+        $("#table").empty();
+        $("#table").html(template(measurementsData));
+    });
 }
 
 function editMeasurement(that,user) {
-    var tr = $(this).parent().parent();
+    var tr = $(that).parent().parent();
+    var i = tr.data("index");
 
+    var weightVal = $(tr).children().eq(1).children("input").val();
+    var waistVal = $(tr).children().eq(2).children("input").val();
 
+    if (weightVal == measurementsData[i].weight && waistVal == measurementsData[i].waist) {
+        return false;
+    }
+
+    measurementsData[i].weight = parseFloat(weightVal);
+    measurementsData[i].waist = parseFloat(waistVal);
+
+    // update y only
+
+    var request = $.ajax({
+        method: "POST",
+        url: "/service/measurements/",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(measurementsData[i])
+    });
+    //
+    request.done(function (rs) {
+        if (!rs.status) {
+            console.log(rs.errMsg);
+            return false;
+        }
+
+        var chart = $("#chart").highcharts();
+        chart.series[0].data[i].update( {x:measurementsData[i].measurementId.date, y: measurementsData[i].weight} );
+        chart.series[1].data[i].update( {x:measurementsData[i].measurementId.date, y: measurementsData[i].waist} );
+    });
 }
 
 function loadUserChart (user) {
@@ -120,8 +163,8 @@ function loadUserChart (user) {
         //
         for (var i in data.measurements) {
             var routine = data.measurements[i];
-            chartDataWeight.push( [routine.measurementId.date, routine.weight ] );
-            chartDataWaist.push( [routine.measurementId.date, routine.waist ] );
+            chartDataWeight.push( [routine.measurementId.date, parseFloat(routine.weight) ] );
+            chartDataWaist.push( [routine.measurementId.date, parseFloat(routine.waist) ] );
         }
 
         $('#chart').highcharts({

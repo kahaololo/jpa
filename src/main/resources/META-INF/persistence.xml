@@ -11,7 +11,6 @@
         <properties>
             <property name="hibernate.dialect" value="com.enigmabridge.hibernate.dialect.SQLiteDialect" />
             <!--<property name="hibernate.hbm2ddl.auto" value = "create"/>-->
-            <property name="hibernate.show_sql" value = "true"/>
             <property name="hibernate.format_sql" value = "true"/>
             <property name="current_session_context_class" value = "thread"/>
             <property name="hibernate.bytecode.use_reflection_optimizer" value="false" />

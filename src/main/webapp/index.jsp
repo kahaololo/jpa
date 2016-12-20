@@ -38,10 +38,10 @@
                 <div class="divTableRow" data-index="{{@index}}">
                     <div class="divTableCell">{{dateformat this.measurementId.date}}</div>
                     <div class="divTableCell">
-                        <input type="number" name="weight" value="{{this.weight}}" readonly>
+                        <input type="number" name="weight" value="{{this.weight}}" >
                     </div>
                     <div class="divTableCell">
-                        <input type="number" name="waist" value="{{this.waist}}" readonly>
+                        <input type="number" name="waist" value="{{this.waist}}" >
                     </div>
                     <div class="divTableCell">
                         <img class="icon edit" src="img/new-24.png">
