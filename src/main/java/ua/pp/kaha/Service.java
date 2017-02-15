@@ -21,7 +21,7 @@ public class Service {
 
     @GET
     @Path("/users/{userId}")
-    public Response getMsg(@PathParam("userId") int userId) throws Exception {
+    public Response getUserId(@PathParam("userId") int userId) throws Exception {
         EntityManager em = EMFListener.createEntityManager();
 
         User user = null;
@@ -39,7 +39,7 @@ public class Service {
     @POST
     @Path("/measurements")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Map<String,String> updateMeasurements(Measurement measurement) {
+    public Map<String,String> updateMeasurement(Measurement measurement) {
         Map<String,String> rs = new HashMap<String, String>();
         EntityManager em = EMFListener.createEntityManager();
 
@@ -63,7 +63,7 @@ public class Service {
     @PUT
     @Path("/measurements")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Map<String,String> addMeasurements(Measurement newMeasurement) {
+    public Map<String,String> addMeasurement(Measurement newMeasurement) {
         Map<String, String> rs = new HashMap<String,String>();
 
         EntityManager em = EMFListener.createEntityManager();
@@ -94,7 +94,7 @@ public class Service {
     @DELETE
     @Path("/measurements")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Map<String,String> deleteMeasurements(Measurement newMeasurement) {
+    public Map<String,String> deleteMeasurement(Measurement newMeasurement) {
         Map<String,String> rs = new HashMap<String,String>();
 
         EntityManager em = EMFListener.createEntityManager();

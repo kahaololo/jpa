@@ -1,8 +1,7 @@
-var template,measurementsData;
+var tableTemplate, loginTemplate, measurementsData;
 
 
-
-$(function() {
+$(function () {
     var user = {
         name: "Kaha",
         id: 1,
@@ -10,29 +9,28 @@ $(function() {
     };
 
     //render table template
-    var source   = $("#table-template").html();
-    template = Handlebars.compile(source);
+    tableTemplate = Handlebars.compile($("#table-template").html());
+    loginTemplate = Handlebars.compile($("#login-template").html());
 
-    Handlebars.registerHelper('dateformat', function(ms) {
+    Handlebars.registerHelper('dateformat', function (ms) {
         return moment(ms).format('DD.MM.YYYY');
     });
 
 
     loadUserChart(user);
 
-    $("#table").on('click', '.remove', function() {
-        removeMeasurement(this,user);
+    $("#table").on('click', '.remove', function () {
+        removeMeasurement(this, user);
     });
-    $("#table").on('click', '.edit', function() {
-        editMeasurement(this,user);
+    $("#table").on('click', '.edit', function () {
+        editMeasurement(this, user);
     });
-    $("#table").on('click', '.add', function() {
-        addMeasurement(this,user);
+    $("#table").on('click', '.add', function () {
+        addMeasurement(this, user);
     });
 
 
 });
-
 
 
 function addMeasurement(that, user) {
@@ -55,7 +53,12 @@ function addMeasurement(that, user) {
         url: "/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(measurement)
+        data: JSON.stringify(measurement),
+        statusCode: {
+            401: function() {
+                $("#form").html(loginTemplate);
+            }
+        }
     });
 
     request.done(function (rs) {
@@ -72,7 +75,7 @@ function addMeasurement(that, user) {
         measurementsData.push(measurement);
         //update template
         $("#table").empty();
-        $("#table").html(template(measurementsData));
+        $("#table").html(tableTemplate(measurementsData));
 
         // clear inputs
         tr.find("input").val('');
@@ -89,7 +92,12 @@ function removeMeasurement(that, user) {
         url: "/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(measurementsData[i])
+        data: JSON.stringify(measurementsData[i]),
+        statusCode: {
+            401: function() {
+                $("#form").html(loginTemplate);
+            }
+        }
     });
 
     request.done(function (rs) {
@@ -98,17 +106,17 @@ function removeMeasurement(that, user) {
             return false;
         }
         var chart = $("#chart").highcharts();
-        chart.series[0].data[i].remove(true,true);
-        chart.series[1].data[i].remove(true,true);
+        chart.series[0].data[i].remove(true, true);
+        chart.series[1].data[i].remove(true, true);
 
-        measurementsData.splice(i,1);
+        measurementsData.splice(i, 1);
 
         $("#table").empty();
-        $("#table").html(template(measurementsData));
+        $("#table").html(tableTemplate(measurementsData));
     });
 }
 
-function editMeasurement(that,user) {
+function editMeasurement(that, user) {
     var tr = $(that).parent().parent();
     var i = tr.data("index");
 
@@ -129,7 +137,12 @@ function editMeasurement(that,user) {
         url: "/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(measurementsData[i])
+        data: JSON.stringify(measurementsData[i]),
+        statusCode: {
+            401: function() {
+                $("#form").html(loginTemplate);
+            }
+        }
     });
     //
     request.done(function (rs) {
@@ -139,16 +152,22 @@ function editMeasurement(that,user) {
         }
 
         var chart = $("#chart").highcharts();
-        chart.series[0].data[i].update( {x:measurementsData[i].measurementId.date, y: measurementsData[i].weight} );
-        chart.series[1].data[i].update( {x:measurementsData[i].measurementId.date, y: measurementsData[i].waist} );
+        chart.series[0].data[i].update({x: measurementsData[i].measurementId.date, y: measurementsData[i].weight});
+        chart.series[1].data[i].update({x: measurementsData[i].measurementId.date, y: measurementsData[i].waist});
     });
 }
 
-function loadUserChart (user) {
+function loadUserChart(user) {
+
 
     var request = $.ajax({
         method: "GET",
-        url: "/service/users/"+user.id
+        url: "/service/users/" + user.id,
+        statusCode: {
+            401: function() {
+                $("#form").html(loginTemplate);
+            }
+        }
     });
 
     request.done(function (data) {
@@ -156,15 +175,15 @@ function loadUserChart (user) {
             console.log("user is null - need to be redirected");
         }
         measurementsData = data.measurements;
-        $("#table").html(template(measurementsData));
+        $("#table").html(tableTemplate(measurementsData));
 
         var chartDataWeight = [];
         var chartDataWaist = [];
         //
         for (var i in data.measurements) {
             var routine = data.measurements[i];
-            chartDataWeight.push( [routine.measurementId.date, parseFloat(routine.weight) ] );
-            chartDataWaist.push( [routine.measurementId.date, parseFloat(routine.waist) ] );
+            chartDataWeight.push([routine.measurementId.date, parseFloat(routine.weight)]);
+            chartDataWaist.push([routine.measurementId.date, parseFloat(routine.waist)]);
         }
 
         $('#chart').highcharts({
