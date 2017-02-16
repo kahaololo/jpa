@@ -16,7 +16,29 @@ $(function () {
         return moment(ms).format('DD.MM.YYYY');
     });
 
+    $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+        jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    });
+    $.fn.serializeFormJSON = function () {
 
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    //$("#form").html(loginTemplate);
+    //
+    //return false;
     loadUserChart(user);
 
     $("#table").on('click', '.remove', function () {
@@ -29,6 +51,47 @@ $(function () {
         addMeasurement(this, user);
     });
 
+    $('input[type="submit"]').mousedown(function () {
+        $(this).css('background', '#2ecc71');
+    });
+    $('input[type="submit"]').mouseup(function () {
+        $(this).css('background', '#1abc9c');
+    });
+
+    $('#showLoginForm').on('click', function () {
+        $('.register').hide();
+        $('.login').show("slow");
+        $(this).toggleClass('green');
+    });
+
+    $('#showRegisterForm').on('click', function () {
+        $('.login').hide();
+        $('.register').show("slow");
+        $(this).toggleClass('green');
+    });
+
+    $("#form").on('submit', '#loginForm', function (e) {
+        e.preventDefault();
+        var request = $.ajax({
+            method: "POST",
+            url: "/rest/authentication",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify($(this).serializeFormJSON()),
+            statusCode: {
+                401: function(response) {
+                    console.log(response);
+                    displayError("wrongPasswordMessage", response.responseText);
+                }
+            },
+        });
+
+        request.done(function(rs) {
+            localStorage.setItem('token', rs.authToken);
+            localStorage.setItem('expires', rs.expires);
+            loadUserChart(user);
+        });
+    });
 
 });
 
@@ -50,14 +113,12 @@ function addMeasurement(that, user) {
 
     var request = $.ajax({
         method: "PUT",
-        url: "/service/measurements/",
+        url: "/rest/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurement),
         statusCode: {
-            401: function() {
-                $("#form").html(loginTemplate);
-            }
+            401: showLoginForm
         }
     });
 
@@ -89,14 +150,12 @@ function removeMeasurement(that, user) {
 
     var request = $.ajax({
         method: "DELETE",
-        url: "/service/measurements/",
+        url: "/rest/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurementsData[i]),
         statusCode: {
-            401: function() {
-                $("#form").html(loginTemplate);
-            }
+            401: showLoginForm
         }
     });
 
@@ -134,14 +193,12 @@ function editMeasurement(that, user) {
 
     var request = $.ajax({
         method: "POST",
-        url: "/service/measurements/",
+        url: "/rest/service/measurements/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurementsData[i]),
         statusCode: {
-            401: function() {
-                $("#form").html(loginTemplate);
-            }
+            401: showLoginForm
         }
     });
     //
@@ -159,18 +216,16 @@ function editMeasurement(that, user) {
 
 function loadUserChart(user) {
 
-
     var request = $.ajax({
         method: "GET",
-        url: "/service/users/" + user.id,
+        url: "/rest/service/users/" + user.id,
         statusCode: {
-            401: function() {
-                $("#form").html(loginTemplate);
-            }
+            401: showLoginForm
         }
     });
 
     request.done(function (data) {
+        $("#form").empty();
         if (!data) {
             console.log("user is null - need to be redirected");
         }
@@ -214,4 +269,14 @@ function loadUserChart(user) {
         });
 
     });
+}
+
+function showLoginForm() {
+    $("#chart").empty();
+    $("#table").empty();
+    $("#form").html(loginTemplate);
+}
+function displayError(selector, msg) {
+    var element = $("#" + selector);
+    element.html(msg);
 }

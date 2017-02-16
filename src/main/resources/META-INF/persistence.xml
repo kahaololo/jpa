@@ -4,8 +4,8 @@
     <persistence-unit name="jpa-test">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>ua.pp.kaha.model.User</class>
-        <class>ua.pp.kaha.model.Measurement</class>
+        <class>ua.pp.kaha.domain.User</class>
+        <class>ua.pp.kaha.domain.Measurement</class>
 
 
         <properties>

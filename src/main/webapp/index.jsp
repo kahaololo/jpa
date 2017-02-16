@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/handlebars.js"></script>
-    <script src="js/form.js"></script>
     <link rel="stylesheet" type="text/css" href="css/table.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/form.css">
@@ -61,19 +60,24 @@
     <div id="wrap">
         <div id="regbar">
             <div id="navthing">
-                <h2><a href="javascript:void(0)" id="loginform">Login</a> | <a href="javascript:void(0)" id="registerform">Register</a></h2>
+                <h2><a href="javascript:void(0)" id="showLoginForm">Login</a> | <a href="javascript:void(0)"
+                                                                               id="showRegisterForm">Register</a></h2>
 
                 <div class="login">
                     <div class="arrow-up-login"></div>
                     <div class="formholder">
                         <div class="randompad">
-                            <fieldset>
-                                <label name="email">Email</label>
-                                <input type="email" value="example@example.com"/>
-                                <label name="password">Password</label>
-                                <input type="password"/>
-                                <input type="submit" value="Login"/>
-                            </fieldset>
+                            <form id="loginForm">
+                                <fieldset id="">
+                                    <label name="email">Email</label>
+                                    <input name="email" type="email" />
+                                    <div class="errorMsg" id="wrongLoginMessage">&nbsp;</div>
+                                    <label name="password">Password</label>
+                                    <input name="password" type="password"/>
+                                    <div class="errorMsg" id="wrongPasswordMessage">&nbsp;</div>
+                                    <input type="submit" value="Login"/>
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -82,13 +86,13 @@
                     <div class="arrow-up-register"></div>
                     <div class="formholder">
                         <div class="randompad">
-                            <fieldset>
+                            <fieldset id="registerFormSet">
                                 <label name="email">Email</label>
-                                <input type="email" value="example@example.com"/>
+                                <input name="email" type="email" value="example@example.com"/>
                                 <label name="password">Password</label>
-                                <input type="password"/>
+                                <input name="password" type="password"/>
                                 <label name="passwordConfirmation">Confirm password</label>
-                                <input type="password"/>
+                                <input name="passwordConfirmation" type="password"/>
                                 <input type="submit" value="Register"/>
                             </fieldset>
                         </div>

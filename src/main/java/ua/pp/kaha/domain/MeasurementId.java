@@ -1,4 +1,4 @@
-package ua.pp.kaha.model;
+package ua.pp.kaha.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

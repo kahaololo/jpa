@@ -107,3 +107,8 @@
   color: #1abc9c;
 }
 
+
+.errorMsg {
+  padding: 5px;
+  color: red;
+}

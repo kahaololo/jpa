@@ -1,7 +1,10 @@
 package ua.pp.kaha;
 
-import ua.pp.kaha.model.Measurement;
-import ua.pp.kaha.model.User;
+import ua.pp.kaha.EMFListener;
+//import ua.pp.kaha.Secured;
+import ua.pp.kaha.Secured;
+import ua.pp.kaha.domain.Measurement;
+import ua.pp.kaha.domain.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -15,12 +18,13 @@ import java.util.Map;
 /**
  * Created by skokhanenko on 17.11.2016.
  */
-@Path ("/")
+@Path ("/service")
 @Produces(MediaType.APPLICATION_JSON)
-public class Service {
+public class MeasurementsService {
 
     @GET
     @Path("/users/{userId}")
+    @Secured
     public Response getUserId(@PathParam("userId") int userId) throws Exception {
         EntityManager em = EMFListener.createEntityManager();
 
@@ -38,6 +42,7 @@ public class Service {
 
     @POST
     @Path("/measurements")
+    @Secured
     @Consumes(MediaType.APPLICATION_JSON)
     public Map<String,String> updateMeasurement(Measurement measurement) {
         Map<String,String> rs = new HashMap<String, String>();
@@ -62,6 +67,7 @@ public class Service {
 
     @PUT
     @Path("/measurements")
+    @Secured
     @Consumes(MediaType.APPLICATION_JSON)
     public Map<String,String> addMeasurement(Measurement newMeasurement) {
         Map<String, String> rs = new HashMap<String,String>();
@@ -93,6 +99,7 @@ public class Service {
 
     @DELETE
     @Path("/measurements")
+    @Secured
     @Consumes(MediaType.APPLICATION_JSON)
     public Map<String,String> deleteMeasurement(Measurement newMeasurement) {
         Map<String,String> rs = new HashMap<String,String>();

@@ -14,12 +14,10 @@ public class EMFListener implements ServletContextListener {
     private static final String PERSISTENT_UNIT_NAME = "jpa-test";
     private static EntityManagerFactory emf;
 
-    @Override
     public void contextInitialized(ServletContextEvent event) {
         emf = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
     }
 
-    @Override
     public void contextDestroyed(ServletContextEvent event) {
         emf.close();
     }
