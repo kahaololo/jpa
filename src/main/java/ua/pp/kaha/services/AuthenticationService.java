@@ -1,13 +1,12 @@
-package ua.pp.kaha;
+package ua.pp.kaha.services;
 
-import io.jsonwebtoken.impl.crypto.MacProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.pp.kaha.EMFListener;
 import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.Token;
 import ua.pp.kaha.domain.User;
 import ua.pp.kaha.utils.TokenUtil;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -15,7 +14,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import java.security.Key;
 import java.util.Calendar;
@@ -28,7 +26,7 @@ import java.util.Date;
 @Path("/authentication")
 public class AuthenticationService {
 
-    @Inject
+    @Autowired
     Key key;
 
     @POST

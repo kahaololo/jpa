@@ -1,4 +1,4 @@
-package ua.pp.kaha;
+package ua.pp.kaha.anotations;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.Retention;

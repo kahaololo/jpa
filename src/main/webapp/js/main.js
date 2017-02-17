@@ -19,22 +19,7 @@ $(function () {
     $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
         jqXHR.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('token'));
     });
-    $.fn.serializeFormJSON = function () {
 
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function () {
-            if (o[this.name]) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
 
     //$("#form").html(loginTemplate);
     //
@@ -83,7 +68,7 @@ $(function () {
                     console.log(response);
                     displayError("wrongPasswordMessage", response.responseText);
                 }
-            },
+            }
         });
 
         request.done(function(rs) {
@@ -93,6 +78,22 @@ $(function () {
         });
     });
 
+    $.fn.serializeFormJSON = function () {
+
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
 });
 
 
@@ -113,7 +114,7 @@ function addMeasurement(that, user) {
 
     var request = $.ajax({
         method: "PUT",
-        url: "/rest/service/measurements/",
+        url: "/rest/service/measurement/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurement),
@@ -150,7 +151,7 @@ function removeMeasurement(that, user) {
 
     var request = $.ajax({
         method: "DELETE",
-        url: "/rest/service/measurements/",
+        url: "/rest/service/measurement/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurementsData[i]),
@@ -193,7 +194,7 @@ function editMeasurement(that, user) {
 
     var request = $.ajax({
         method: "POST",
-        url: "/rest/service/measurements/",
+        url: "/rest/service/measurement/",
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify(measurementsData[i]),
@@ -218,7 +219,7 @@ function loadUserChart(user) {
 
     var request = $.ajax({
         method: "GET",
-        url: "/rest/service/users/" + user.id,
+        url: "/rest/service/measurements/",
         statusCode: {
             401: showLoginForm
         }

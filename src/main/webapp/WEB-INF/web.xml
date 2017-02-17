@@ -34,8 +34,15 @@
     </servlet-mapping>
 
 
+    <!--<listener>-->
+        <!--<listener-class>ua.pp.kaha.EMFListener</listener-class>-->
+    <!--</listener>-->
+
+
     <listener>
-        <listener-class>ua.pp.kaha.EMFListener</listener-class>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
     </listener>
 
 
