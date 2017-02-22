@@ -1,7 +1,6 @@
 package ua.pp.kaha.services;
 
 import ua.pp.kaha.EMFListener;
-//import ua.pp.kaha.anotations.Secured;
 import ua.pp.kaha.anotations.Secured;
 import ua.pp.kaha.domain.Measurement;
 import ua.pp.kaha.domain.User;
@@ -10,10 +9,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import java.util.HashMap;
 import java.util.Map;
+
+//import ua.pp.kaha.anotations.Secured;
 
 /**
  * Created by skokhanenko on 17.11.2016.
@@ -25,12 +28,13 @@ public class MeasurementsService {
 
     @GET
     @Path("/measurements")
-    public Response getMeasurements(@PathParam("userId") int userId) throws Exception {
-        EntityManager em = EMFListener.createEntityManager();
-
+    public Response getMeasurements(@Context SecurityContext securityContext) throws Exception {
+        String username = securityContext.getUserPrincipal().getName();
         User user = null;
+
+        EntityManager em = EMFListener.createEntityManager();
         try {
-            user = em.find(User.class, userId);
+            user = em.createQuery(User.class, username);
         } catch (NoResultException e) {
             e.printStackTrace();
         }
