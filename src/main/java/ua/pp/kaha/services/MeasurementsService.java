@@ -5,9 +5,7 @@ import ua.pp.kaha.anotations.Secured;
 import ua.pp.kaha.domain.Measurement;
 import ua.pp.kaha.domain.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
+import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -34,7 +32,9 @@ public class MeasurementsService {
 
         EntityManager em = EMFListener.createEntityManager();
         try {
-            user = em.createQuery(User.class, username);
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.email = :username", User.class);
+            query.setParameter("username", username);
+            user = query.getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
         }

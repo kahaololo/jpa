@@ -38,7 +38,7 @@ public class AuthenticationService {
             // Authenticate the user using the credentials provided
             authenticate(credentials);
 
-            Date expiryDate = getExpiryDate(20);
+            Date expiryDate = getExpiryDate(86400);
             String JWTString = TokenUtil.getJWTString(credentials.getEmail(), expiryDate, key);
             Token token = new Token();
             token.setAuthToken(JWTString);
