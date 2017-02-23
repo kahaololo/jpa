@@ -6,6 +6,7 @@
     <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+    <script src="https://raw.githubusercontent.com/riot/riot/master/riot.js"></script>
     <script src="js/main.js"></script>
     <script src="js/handlebars.js"></script>
     <link rel="stylesheet" type="text/css" href="css/table.css">
