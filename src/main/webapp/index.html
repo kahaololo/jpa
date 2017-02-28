@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Hello Kaha</title>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.red-orange.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="/css/users/user.css"/>-->
+</head>
+<body>
+<!-- Simple header with scrollable tabs. -->
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Exploring Riot.js - Route 66</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation -->
+            <nav-menu></nav-menu>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Exploring Riot.js - Route 66</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="#home">Home</a>
+            <a class="mdl-navigation__link" href="#welcome">Welcome Pag1e</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div id="content"></div>
+    </main>
+</div>
+
+    <!--&lt;!&ndash; include riot.js &ndash;&gt;-->
+    <script src="../node_modules/riot/riot.min.js"></script>
+    <!--&lt;!&ndash; include riot's routes.js &ndash;&gt;-->
+    <script src="../node_modules/riot-route/dist/route.js"></script>
+    <!---->
+    <script src="../node_modules/material-design-lite/material.min.js"></script>
+    <!---->
+    <!--<script src="../dist/js/loading.js"></script>-->
+    <!--<script src="../dist/js/not-found-page.js"></script>-->
+    <script src="/js/routes.js"></script>
+    <!--<script src="../app/js/about/about.js"></script>-->
+    <!--<script src="../dist/js/about/about-page.js"></script>-->
+    <script src="/app/home.js"></script>
+    <script src="/dist/home-page.js"></script>
+    <script src="/app/welcome.js"></script>
+    <script src="/dist/welcome-page.js"></script>
+    <script src="/dist/nav-menu.js"></script>
+    <!--<script src="../dist/js/users/user-card.js"></script>-->
+    <!--<script src="../dist/js/users/user-hobbies.js"></script>-->
+    <!--<script src="../dist/js/users/user-profile.js"></script>-->
+    <!--<script src="../app/js/users/user-service.js"></script>-->
+    <!--<script src="../app/js/users/user-async-service.js"></script>-->
+    <!--<script src="../app/js/users/users.js"></script>-->
+    <!--<script src="../dist/js/users/users-page.js"></script>-->
+
+    <!-- mount normally -->
+    <script>
+        riot.mount('*');
+        route.start(true);
+    </script>
+</body>
+</html>

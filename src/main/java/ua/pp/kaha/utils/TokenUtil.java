@@ -12,12 +12,12 @@ import java.util.Date;
  * Created by kaha on 16.02.2017.
  */
 public class TokenUtil {
-    public static String getJWTString(String username, Date expires, Key key) {
+    public static String getJWTString(String email, Date expires, Key key) {
         // Issue a token (can be a random String persisted to a database or a JWT token)
         // The issued token must be associated to a user
         // Return the issued token
-        if (username == null) {
-            throw new NullPointerException("null username is illegal");
+        if (email == null) {
+            throw new NullPointerException("null email is illegal");
         }
         if (expires == null) {
             throw new NullPointerException("null expires is illegal");
@@ -31,7 +31,7 @@ public class TokenUtil {
         String jwtString = Jwts
                 .builder()
                 .setIssuer("Jersey-Security-Basic")
-                .setSubject(username)
+                .setSubject(email)
                 .setExpiration(expires)
                 .setIssuedAt(new Date())
                 .signWith(signatureAlgorithm, key)
