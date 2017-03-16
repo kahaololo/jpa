@@ -12,8 +12,12 @@ function mount(tag, options) {
 }
 
 function handler(collection, id, action) {
-    var fn = routes[collection || 'home'];
+    var fn = routes[collection || 'welcome'];
     fn ? fn(id, action) : mount('not-found-page');
 }
 
 route(handler);
+
+function isLogged() {
+    return true;
+}

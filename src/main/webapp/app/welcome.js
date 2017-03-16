@@ -5,5 +5,5 @@
 'use strict';
 
 routes.welcome = function(id, action) {
-    mount('welcome-page');
+    riot.mount('#content', 'welcome-page');
 };
