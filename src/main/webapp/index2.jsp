@@ -56,53 +56,6 @@
     </div>
 </script>
 
-<script id="login-template" type="text/x-handlebars-template">
-
-    <div id="wrap">
-        <div id="regbar">
-            <div id="navthing">
-                <h2><a href="javascript:void(0)" id="showLoginForm">Login</a> | <a href="javascript:void(0)"
-                                                                               id="showRegisterForm">Register</a></h2>
-
-                <div class="login">
-                    <div class="arrow-up-login"></div>
-                    <div class="formholder">
-                        <div class="randompad">
-                            <form id="loginForm">
-                                <fieldset id="">
-                                    <label name="email">Email</label>
-                                    <input name="email" type="email" />
-                                    <div class="errorMsg" id="wrongLoginMessage">&nbsp;</div>
-                                    <label name="password">Password</label>
-                                    <input name="password" type="password"/>
-                                    <div class="errorMsg" id="wrongPasswordMessage">&nbsp;</div>
-                                    <input type="submit" value="Login"/>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="register">
-                    <div class="arrow-up-register"></div>
-                    <div class="formholder">
-                        <div class="randompad">
-                            <fieldset id="registerFormSet">
-                                <label name="email">Email</label>
-                                <input name="email" type="email" value="example@example.com"/>
-                                <label name="password">Password</label>
-                                <input name="password" type="password"/>
-                                <label name="passwordConfirmation">Confirm password</label>
-                                <input name="passwordConfirmation" type="password"/>
-                                <input type="submit" value="Register"/>
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</script>
 
 <!-- DivTable.com -->
 <div id="container">
