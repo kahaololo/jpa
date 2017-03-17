@@ -26,7 +26,4 @@
 
 
 
-    <script>
-    </script>
-
 </nav-bar>

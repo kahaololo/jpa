@@ -17,7 +17,3 @@ function handler(collection, id, action) {
 }
 
 route(handler);
-
-function isLogged() {
-    return true;
-}
