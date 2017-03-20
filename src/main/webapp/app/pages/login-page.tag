@@ -4,13 +4,13 @@
         <form class="form-signin" onsubmit={submit}>
             <h2 class="form-signin-heading">Please sign in</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ref="email" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" ref="password" required>
 
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" value="remember-me"> Remember me
+                    <input type="checkbox" name="save" ref="save"> Remember me
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -64,7 +64,8 @@
     <script>
         this.submit = function(e) {
             e.preventDefault();
-            this.login("newKeyFromServer",new Date());
+            var save = this.refs.save.checked ? 1 : 0;
+            AuthService.getInstance().login("newKeyFromServer",new Date(), save);
             riot.update();
             route('welcome');
         }

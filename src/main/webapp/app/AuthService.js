@@ -3,28 +3,52 @@
  */
 
 var AuthService = (function () {
-    function isUserLoggedIn() {
-        return localStorage.getItem("key") != null && localStorage.getItem("key").length && localStorage.getItem("date");
-    }
 
-    function getUserName() {
-        return null;
-    }
+    // Instance stores a reference to the Singleton
+    var instance;
 
-    function login(key, date) {
-        localStorage.setItem("key", key);
-        localStorage.setItem("date", date);
-    }
+    function init() {
+        var token = new Token();
 
-    function logout() {
-        localStorage.removeItem("key");
-        localStorage.removeItem("datekey");
+        function isUserLoggedIn() {
+            return token.isValid();
+        }
+
+        function getUserName() {
+            return null;
+        }
+
+        function login(key, date, save) {
+            token = new Token(key, date);
+
+            var storage = save ? localStorage : sessionStorage;
+
+            storage.setItem("key", key);
+            storage.setItem("date", date);
+        }
+
+        function logout() {
+            token.erase();
+
+            [localStorage, sessionStorage].forEach(function(storage){
+                storage.removeItem("key");
+                storage.removeItem("date");
+            });
+        }
+
+        return {
+            isUserLoggedIn: isUserLoggedIn,
+            getUserName: getUserName,
+            login: login,
+            logout: logout
+        };
     }
 
     return {
-        isUserLoggedIn: isUserLoggedIn,
-        getUserName: getUserName,
-        login: login,
-        logout: logout
+        getInstance: function () {
+            if ( !instance )
+                instance = init();
+            return instance;
+        }
     };
-}());
+})();

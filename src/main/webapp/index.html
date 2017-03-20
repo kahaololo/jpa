@@ -27,11 +27,17 @@
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/moment/moment.js"></script>
+    <script src="../node_modules/highcharts/highcharts.js"></script>
+    <!---->
     <!---->
     <script src="../node_modules/material-design-lite/material.min.js"></script>
 
     <!---->
     <script src="/js/routes.js"></script>
+
+    <script src="/app/model/Measurement.js"></script>
+    <script src="/app/model/Token.js"></script>
+
     <script src="/app/AuthService.js"></script>
 
     <script src="/app/route_handlers/welcome.js"></script>
@@ -51,7 +57,6 @@
 
     <!-- mount normally -->
     <script>
-        riot.mixin(AuthService);
         riot.mount('*');
         route.start(true);
     </script>
