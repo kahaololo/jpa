@@ -3,23 +3,28 @@
  */
 
 var AuthService = (function () {
-    var userLoggedIn = false;
-
     function isUserLoggedIn() {
-        return userLoggedIn;
+        return localStorage.getItem("key") != null && localStorage.getItem("key").length && localStorage.getItem("date");
     }
 
     function getUserName() {
         return null;
     }
 
-    function setUserLoggedIn(boolean) {
-        userLoggedIn = boolean ? true : false;
+    function login(key, date) {
+        localStorage.setItem("key", key);
+        localStorage.setItem("date", date);
+    }
+
+    function logout() {
+        localStorage.removeItem("key");
+        localStorage.removeItem("datekey");
     }
 
     return {
         isUserLoggedIn: isUserLoggedIn,
         getUserName: getUserName,
-        setUserLoggedIn: setUserLoggedIn
+        login: login,
+        logout: logout
     };
 }());

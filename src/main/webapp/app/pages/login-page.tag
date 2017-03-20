@@ -64,7 +64,7 @@
     <script>
         this.submit = function(e) {
             e.preventDefault();
-            this.setUserLoggedIn(true);
+            this.login("newKeyFromServer",new Date());
             riot.update();
             route('welcome');
         }
