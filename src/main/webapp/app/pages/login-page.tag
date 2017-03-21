@@ -62,10 +62,11 @@
     </style>
 
     <script>
+        var tag = this;
         this.submit = function(e) {
             e.preventDefault();
             var save = this.refs.save.checked ? 1 : 0;
-            AuthService.getInstance().login("newKeyFromServer",new Date(), save);
+            tag.opts.authService.login("newKeyFromServer",new Date(), save);
             riot.update();
             route('welcome');
         }

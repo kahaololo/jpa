@@ -39,6 +39,7 @@
     <script src="/app/model/Token.js"></script>
 
     <script src="/app/AuthService.js"></script>
+    <script src="/app/MeasurementService.js"></script>
 
     <script src="/app/route_handlers/welcome.js"></script>
     <script src="/app/route_handlers/login.js"></script>
@@ -47,7 +48,6 @@
     <script src="/app/route_handlers/logout.js"></script>
 
     <script src="/dist/components/nav-bar.js"></script>
-    <script src="/dist/components/nav-menu.js"></script>
     <script src="/dist/pages/welcome-page.js"></script>
     <script src="/dist/pages/not-found-page.js"></script>
     <script src="/dist/pages/login-page.js"></script>
@@ -57,7 +57,10 @@
 
     <!-- mount normally -->
     <script>
-        riot.mount('*');
+        var obs = riot.observable();
+        var authService = new AuthService(obs);
+        var measurementService = new MeasurementService(obs);
+        riot.mount('nav-bar', {observable: obs, isLoggedIn: authService.isUserLoggedIn()});
         route.start(true);
     </script>
 </body>
