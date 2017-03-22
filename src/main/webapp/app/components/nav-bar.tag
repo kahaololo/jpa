@@ -25,7 +25,7 @@
     </nav>
 
     <script>
-        var tag = this;
+        let tag = this;
         tag.userName = "John Dou";
         tag.isLoggedIn = opts.isLoggedIn || false;
 

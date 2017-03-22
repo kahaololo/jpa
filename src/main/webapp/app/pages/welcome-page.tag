@@ -6,6 +6,7 @@
 
     <div if={ this.isLoggedIn }>
         <h1>welcome</h1>
+        <add-button></add-button>
     </div>
 
     <script>
