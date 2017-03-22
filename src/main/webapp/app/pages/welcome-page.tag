@@ -9,18 +9,7 @@
     </div>
 
     <script>
-        var tag = this;
-        tag.isLoggedIn = opts.isLoggedIn;
-
-        tag.opts.observable.on("logIn", function () {
-            tag.isLoggedIn = true;
-            tag.update();
-        });
-
-        tag.opts.observable.on("logOut", function () {
-            tag.isLoggedIn = false;
-            tag.update();
-        });
+        this.isLoggedIn = this.opts.isLoggedIn;
     </script>
 
 </welcome-page>

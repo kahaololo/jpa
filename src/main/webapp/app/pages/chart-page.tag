@@ -1,12 +1,10 @@
 <chart-page>
     <div if={measurements.length} id="chart">asd</div>
-    <yield/>
 
     <p if={!measurements.length}>No data records. Please create new one.</p>
 
-
     <script>
-
+        this.measurements = this.opts.measurementService.getMeasurements();
 
         this.on("mount", function(){
             var chartDataWeight = [];

@@ -5,10 +5,17 @@ class MeasurementService {
     constructor(obs) {
         this.obs = obs;
         this.url = "#api/";
+        this.measurements = null;
+    }
+
+    getMeasurements() {
+        if (this.measurements === null)
+            this.measurements = this.fetchJson();
+        return this.measurements;
     }
 
     fetchJson() {
-        var measurements = [
+        let measurements = [
             new Measurement(new Date("2016-11-24"),96,81),
             new Measurement(new Date("2016-11-25"),83,83),
             new Measurement(new Date("2016-11-26"),81,82),
@@ -42,6 +49,16 @@ class MeasurementService {
             new Measurement(new Date("2016-12-24"),96,83)
         ];
         this.obs.trigger("measurementsUpdated", measurements);
+        return measurements;
     }
 
+    removeMeasurement(index) {
+        this.measurements.splice(index,1);
+    }
+
+    updateMeasurement(index, weigth, waist) {
+        let measurement = this.measurements[index];
+        measurement.setWeight(weigth);
+        measurement.setWaist(waist);
+    }
 }

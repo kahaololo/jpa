@@ -57,9 +57,9 @@
 
     <!-- mount normally -->
     <script>
-        var obs = riot.observable();
-        var authService = new AuthService(obs);
-        var measurementService = new MeasurementService(obs);
+        const obs = riot.observable();
+        const authService = new AuthService(obs);
+        const measurementService = new MeasurementService(obs);
         riot.mount('nav-bar', {observable: obs, isLoggedIn: authService.isUserLoggedIn()});
         route.start(true);
     </script>

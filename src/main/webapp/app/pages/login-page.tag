@@ -67,7 +67,6 @@
             e.preventDefault();
             var save = this.refs.save.checked ? 1 : 0;
             tag.opts.authService.login("newKeyFromServer",new Date(), save);
-            riot.update();
             route('welcome');
         }
     </script>

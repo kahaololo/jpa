@@ -3,7 +3,7 @@
  */
 routes.results = function () {
     if (authService.isUserLoggedIn())
-        mount('results-page', {observable: obs});
+        mount('results-page', {observable: obs, measurementService: measurementService});
     else
         route('login', 'Prohibited', true);
 }
