@@ -5,12 +5,22 @@ class MeasurementService {
     constructor(obs) {
         this.obs = obs;
         this.url = "#api/";
-        this.measurements = null;
+        this.measurements = this.fetchJson();
+        this.sorted = false;
     }
 
-    getMeasurements() {
-        if (this.measurements === null)
-            this.measurements = this.fetchJson();
+    getMeasurements(order) {
+        if (order) {
+            if (order === 'asc')
+                return this.measurements.sort(function(a,b) {
+                    return  a.getDate() - b.getDate();
+                });
+            if(order === 'desc')
+                return this.measurements.sort(function(a,b) {
+                    return  b.getDate() - a.getDate();
+                });
+        }
+
         return this.measurements;
     }
 
@@ -48,7 +58,6 @@ class MeasurementService {
             new Measurement(new Date("2016-12-23"),91,84),
             new Measurement(new Date("2016-12-24"),96,83)
         ];
-        this.obs.trigger("measurementsUpdated", measurements);
         return measurements;
     }
 
@@ -60,5 +69,12 @@ class MeasurementService {
         let measurement = this.measurements[index];
         measurement.setWeight(weigth);
         measurement.setWaist(waist);
+    }
+
+    addMeasurement(date, weight, waist) {
+        let measurement = new Measurement(new Date(date),weight,waist);
+        this.measurements.push(measurement);
+
+        this.obs.trigger("newMeasurement", measurement);
     }
 }

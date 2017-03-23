@@ -1,25 +1,21 @@
 <chart-page>
-    <div if={measurements.length} id="chart">asd</div>
+    <div if={measurements.length} id="chart"></div>
 
     <p if={!measurements.length}>No data records. Please create new one.</p>
 
     <script>
-        this.measurements = this.opts.measurementService.getMeasurements();
+        var tag = this;
+        tag.measurements = tag.opts.measurementService.getMeasurements("asc");
 
-        this.on("mount", function(){
-            var chartDataWeight = [];
-            var chartDataWaist = [];
-            //
-            this.measurements.forEach(function (measurement){
-                chartDataWeight.push([
-                    moment.utc(measurement.getDate()).valueOf(),
-                    parseFloat(measurement.getWeight())
-                ]);
-                chartDataWaist.push([
-                    moment.utc(measurement.getDate()).valueOf(),
-                    parseFloat(measurement.getWaist())
-                ]);
-            });
+        tag.opts.observable.on("newMeasurement", function (measurement) {
+            let chart = $("#chart").highcharts();
+            chart.series[0].addPoint([moment.utc(measurement.getDate()).valueOf(), measurement.getWeight()]);
+            chart.series[1].addPoint([moment.utc(measurement.getDate()).valueOf(), measurement.getWaist()]);
+        });
+
+        tag.on("mount", function () {
+
+            let series = tag.createSeries(tag.measurements);
 
             $('#chart').highcharts({
                 chart: {
@@ -41,12 +37,34 @@
                 },
                 series: [{
                     name: 'Weight',
-                    data: chartDataWeight
+                    data: series.weight
                 }, {
                     name: 'Waist',
-                    data: chartDataWaist
+                    data: series.waist
                 }]
             });
         });
+
+        tag.createSeries = function(measurements) {
+            let chartDataWeight = [];
+            let chartDataWaist = [];
+
+            if (measurements && measurements.length)
+                measurements.forEach(function (measurement) {
+                    chartDataWeight.push([
+                        moment.utc(measurement.getDate()).valueOf(),
+                        measurement.getWeight()
+                    ]);
+                    chartDataWaist.push([
+                        moment.utc(measurement.getDate()).valueOf(),
+                        measurement.getWaist()
+                    ]);
+                });
+
+            return {
+                weight: chartDataWeight,
+                waist: chartDataWaist
+            };
+        }
     </script>
 </chart-page>

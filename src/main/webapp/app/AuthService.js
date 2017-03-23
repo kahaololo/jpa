@@ -19,6 +19,7 @@ class AuthService {
         storage.setItem("key", key);
         storage.setItem("date", date);
 
+
         this.observable.trigger("logIn");
     }
 
@@ -31,6 +32,10 @@ class AuthService {
         });
 
         this.observable.trigger("logOut");
+    }
+
+    getUserName() {
+        return this.token.getUserName();
     }
 
 }

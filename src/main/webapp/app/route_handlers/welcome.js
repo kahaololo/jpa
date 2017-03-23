@@ -5,5 +5,10 @@
 'use strict';
 
 routes.welcome = function(id, action) {
-    mount('welcome-page', {observable: obs, isLoggedIn: authService.isUserLoggedIn()});
+    mount('welcome-page', {
+        observable: obs,
+        isLoggedIn: authService.isUserLoggedIn(),
+        userName: authService.getUserName(),
+        measurementService: measurementService
+    });
 };

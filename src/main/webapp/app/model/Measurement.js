@@ -21,7 +21,7 @@ Measurement.prototype.setWeight = function(w) {
 };
 
 Measurement.prototype.getWeight = function() {
-    return this.weight;
+    return parseFloat(this.weight);
 };
 
 Measurement.prototype.setWaist = function(w) {
@@ -29,5 +29,5 @@ Measurement.prototype.setWaist = function(w) {
 };
 
 Measurement.prototype.getWaist = function() {
-    return this.waist;
+    return parseFloat(this.waist);
 };

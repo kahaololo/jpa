@@ -4,7 +4,12 @@
 function Token(key, expiresAt) {
     this._key = key || sessionStorage.getItem("key") || localStorage.getItem("key") || null;
     this._expiresAt = expiresAt || sessionStorage.getItem("date") || localStorage.getItem("date") || null;
+    this._userName = "Kaha";
 }
+
+Token.prototype.getUserName = function() {
+    return this._userName;
+};
 
 Token.prototype.key = function(key) {
     if (arguments.length == 0)

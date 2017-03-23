@@ -26,7 +26,7 @@
 
     <script>
         let tag = this;
-        tag.userName = "John Dou";
+        tag.userName = opts.userName;
         tag.isLoggedIn = opts.isLoggedIn || false;
 
         tag.opts.observable.on("logIn", function () {
