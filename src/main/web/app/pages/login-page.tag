@@ -68,9 +68,7 @@
 
             let save = tag.refs.save.checked ? 1 : 0;
 
-            let formData = new FormData();
-            formData.append("email", tag.refs.email.value);
-            formData.append("password", tag.refs.password.value);
+            let formData = $('#loginForm').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
 
             var request = $.ajax({
                 method: "POST",
@@ -78,7 +76,7 @@
                 dataType: 'json',
                 processData: false,
                 contentType: "application/json",
-                data: formData,
+                data: JSON.stringify( formData ),
                 statusCode: {
                     401: function(response) {
                         console.log(response);

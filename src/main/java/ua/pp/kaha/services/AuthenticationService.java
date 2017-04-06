@@ -60,7 +60,7 @@ public class AuthenticationService {
             User user = (User) query.getSingleResult();
             if (!credentials.getPassword().equals(user.getPassword()))
                 throw new Exception("User or password is incorrect");
-        } catch (NoResultException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("User not found");
         } finally {
