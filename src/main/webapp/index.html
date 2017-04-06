@@ -3,11 +3,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Hello Kaha</title>
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.red-orange.min.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/table.css"/>
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table.css"/>
     <!--<link rel="stylesheet" type="text/css" href="/css/users/user.css"/>-->
 </head>
 <body>
@@ -22,42 +20,38 @@
 
 
     <!--&lt;!&ndash; include riot.js &ndash;&gt;-->
-    <script src="../node_modules/riot/riot.js"></script>
+    <script src="lib/riot.js"></script>
     <!--&lt;!&ndash; include riot's routes.js &ndash;&gt;-->
-    <script src="../node_modules/riot-route/dist/route.js"></script>
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../node_modules/bootstrap-notify/bootstrap-notify.js"></script>
-    <script src="../node_modules/moment/moment.js"></script>
-    <script src="../node_modules/highcharts/highcharts.js"></script>
+    <script src="lib/route.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-notify.js"></script>
+    <script src="lib/moment.js"></script>
+    <script src="lib/highcharts.js"></script>
     <!---->
-    <!---->
-    <script src="../node_modules/material-design-lite/material.min.js"></script>
+    <script src="js/routes.js"></script>
 
-    <!---->
-    <script src="/js/routes.js"></script>
+    <script src="app/model/Measurement.js"></script>
+    <script src="app/model/Token.js"></script>
 
-    <script src="/app/model/Measurement.js"></script>
-    <script src="/app/model/Token.js"></script>
+    <script src="app/AuthService.js"></script>
+    <script src="app/MeasurementService.js"></script>
+    <script src="app/Utils.js"></script>
 
-    <script src="/app/AuthService.js"></script>
-    <script src="/app/MeasurementService.js"></script>
-    <script src="/app/Utils.js"></script>
+    <script src="app/route_handlers/welcome.js"></script>
+    <script src="app/route_handlers/login.js"></script>
+    <script src="app/route_handlers/chart.js"></script>
+    <script src="app/route_handlers/results.js"></script>
+    <script src="app/route_handlers/logout.js"></script>
 
-    <script src="/app/route_handlers/welcome.js"></script>
-    <script src="/app/route_handlers/login.js"></script>
-    <script src="/app/route_handlers/chart.js"></script>
-    <script src="/app/route_handlers/results.js"></script>
-    <script src="/app/route_handlers/logout.js"></script>
-
-    <script src="/dist/components/nav-bar.js"></script>
-    <script src="/dist/components/add-measurement.js"></script>
-    <script src="/dist/components/statistics.js"></script>
-    <script src="/dist/pages/welcome-page.js"></script>
-    <script src="/dist/pages/not-found-page.js"></script>
-    <script src="/dist/pages/login-page.js"></script>
-    <script src="/dist/pages/chart-page.js"></script>
-    <script src="/dist/pages/result-page.js"></script>
+    <script src="/app/components/nav-bar.js"></script>
+    <script src="/app/components/add-measurement.js"></script>
+    <script src="/app/components/statistics.js"></script>
+    <script src="/app/pages/welcome-page.js"></script>
+    <script src="/app/pages/not-found-page.js"></script>
+    <script src="/app/pages/login-page.js"></script>
+    <script src="/app/pages/chart-page.js"></script>
+    <script src="/app/pages/result-page.js"></script>
 
 
     <!-- mount normally -->
