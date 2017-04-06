@@ -1,12 +1,12 @@
 <login-page>
     <div class="container">
 
-        <form class="form-signin" onsubmit={submit}>
+        <form class="form-signin" id="loginForm" onsubmit={submit}>
             <h2 class="form-signin-heading">Please sign in</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ref="email" required autofocus>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" ref="email" required autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" ref="password" required>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" ref="password" required>
 
             <div class="checkbox">
                 <label>
@@ -62,12 +62,37 @@
     </style>
 
     <script>
-        var tag = this;
-        this.submit = function(e) {
+        let tag = this;
+        tag.submit = function(e) {
             e.preventDefault();
-            var save = this.refs.save.checked ? 1 : 0;
-            tag.opts.authService.login("newKeyFromServer",new Date(), save);
-            route('welcome');
+
+            let save = tag.refs.save.checked ? 1 : 0;
+
+            let formData = new FormData();
+            formData.append("email", tag.refs.email.value);
+            formData.append("password", tag.refs.password.value);
+
+            var request = $.ajax({
+                method: "POST",
+                url: "/rest/authentication",
+                dataType: 'json',
+                processData: false,
+                contentType: "application/json",
+                data: formData,
+                statusCode: {
+                    401: function(response) {
+                        console.log(response);
+//                        displayError("wrongPasswordMessage", response.responseText);
+                    }
+                }
+            });
+
+            request.done(function(rs) {
+                tag.opts.authService.login(rs.authToken, rs.expires, save);
+            });
+
+
+//            route('welcome');
         }
     </script>
 </login-page>

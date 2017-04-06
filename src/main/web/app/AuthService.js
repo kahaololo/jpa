@@ -5,6 +5,7 @@ class AuthService {
     constructor(obs) {
         this.observable = obs;
         this.token = new Token();
+        $.ajaxSetup({headers: { 'Authorization': this.token.key() }});
     }
 
     isUserLoggedIn() {

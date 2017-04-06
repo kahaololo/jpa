@@ -78,11 +78,30 @@
     </build>
 
     <dependencies>
+        <!--Jetty-->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.0.RC3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>9.4.0.RC3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <version>9.4.0.RC3</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.6.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.enigmabridge</groupId>
             <artifactId>hibernate4-sqlite-dialect</artifactId>

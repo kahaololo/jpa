@@ -9,11 +9,8 @@ public class Credentials implements Serializable {
     private String email;
     private String password;
 
-    public Credentials() {
-    }
-
-    public Credentials(String name, String password) {
-        this.email = name;
+    public Credentials(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
@@ -23,13 +20,5 @@ public class Credentials implements Serializable {
 
     public String getPassword() {
         return password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

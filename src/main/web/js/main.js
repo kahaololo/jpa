@@ -57,7 +57,7 @@ $(function () {
 
     $("#form").on('submit', '#loginForm', function (e) {
         e.preventDefault();
-        var request = $.ajax({
+        let request = $.ajax({
             method: "POST",
             url: "/rest/authentication",
             dataType: 'json',
