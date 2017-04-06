@@ -5,3 +5,6 @@ target/
 /src/main/webapp/dist/
 /.idea/libraries/
 /src/main/webapp/build/
+/src/main/webapp/index.html
+/src/main/web/node_modules/
+/src/main/web/build/

@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         clean: {
             build: {
-                src: ['./build', './dist']
+                src: ['./build']
             }
         },
         uglify: {
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                 dest: 'build/',
             },
             js: {
-                src: ['js/main.js', 'js/routes.js'],
+                src: ['js/routes.js'],
                 dest: 'build/',
             },
             lib: {
@@ -66,9 +66,17 @@ module.exports = function (grunt) {
                 flatten: true,
                 filter: 'isFile'
             },
-            index: {
-                src: 'index.html',
-                dest: 'build/'
+            build: {
+                files: [
+                    {
+                        src: 'build/**',
+                        dest: '../webapp/',
+                    },
+                    {
+                        src: 'index.html',
+                        dest: '../webapp/'
+                    }
+                ]
             }
         },
         connect: {
@@ -90,6 +98,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-riot');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'copy', 'riot']);
+    grunt.registerTask('default', ['clean', 'riot', 'copy']);
 
 };

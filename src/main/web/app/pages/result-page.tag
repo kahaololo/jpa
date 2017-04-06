@@ -21,8 +21,8 @@
                     <input type="number" name="waist" value={measurement.getWaist()}>
                 </div>
                 <div class="divTableCell">
-                    <img class="icon edit" src="img/new-24.png" onclick={change}>
-                    <img class="icon remove" src="img/cross-24.png" onclick={remove}>
+                    <img class="icon edit" src="build/img/new-24.png" onclick={change}>
+                    <img class="icon remove" src="build/img/cross-24.png" onclick={remove}>
                 </div>
             </div>
         </div>

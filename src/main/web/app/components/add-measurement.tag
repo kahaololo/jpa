@@ -1,12 +1,12 @@
 <add-measurement>
 
     <!-- Button trigger modal -->
-    <button class="btn btn-primary btn-lg" data-toggle="modal" id="addButton" data-target="#myModalNorm">
+    <button if={ this.isLoggedIn } class="btn btn-primary btn-lg" data-toggle="modal" id="addButton" data-target="#myModalNorm">
         Add
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
+    <div if={ this.isLoggedIn } class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -66,8 +66,11 @@
     </style>
 
     <script>
+        let tag = this;
 
-        this.addMeasurement = function (e) {
+        tag.isLoggedIn = opts.isLoggedIn || false;
+
+        tag.addMeasurement = function (e) {
             e.preventDefault();
 
             let date = this.refs.date;
@@ -86,6 +89,16 @@
 
             Utils.notify("success", '<strong>Adding new entry</strong> Success!');
         }
+
+        tag.opts.observable.on("logIn", function () {
+            tag.isLoggedIn = true;
+            tag.update();
+        });
+
+        tag.opts.observable.on("logOut", function () {
+            tag.isLoggedIn = false;
+            tag.update();
+        });
 
 
     </script>
