@@ -1,14 +1,12 @@
 package ua.pp.kaha.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ua.pp.kaha.EMFListener;
 import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.Token;
 import ua.pp.kaha.domain.User;
 import ua.pp.kaha.utils.TokenUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -52,19 +50,12 @@ public class AuthenticationService {
         // Throw an Exception if the credentials are invalid
         if (credentials == null || credentials.getEmail() == null || credentials.getPassword() == null)
             throw new Exception("Incorrect username or password");
-        EntityManager em = EMFListener.createEntityManager();
-
         try {
-            Query query = em.createQuery("SELECT u FROM User u WHERE email = :email");
-            query.setParameter("email", credentials.getEmail());
-            User user = (User) query.getSingleResult();
-            if (!credentials.getPassword().equals(user.getPassword()))
                 throw new Exception("User or password is incorrect");
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("User not found");
         } finally {
-            em.close();
         }
 
     }

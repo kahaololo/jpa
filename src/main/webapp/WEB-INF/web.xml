@@ -34,10 +34,6 @@
     </servlet-mapping>
 
 
-    <listener>
-        <listener-class>ua.pp.kaha.EMFListener</listener-class>
-    </listener>
-
 
 </web-app>
 
