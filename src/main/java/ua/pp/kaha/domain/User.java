@@ -12,17 +12,12 @@ import java.util.List;
 @Table(name = "Users")
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UsersGen")
-    @TableGenerator(name = "UsersGen", table = "sqlite_sequence", allocationSize = 1, valueColumnName = "seq", pkColumnName = "name")
     private int id;
 
-    @Column
     private String name;
 
-    @Column
     private String email;
 
-    @Column
     private String password;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -32,6 +27,13 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(int id, String name, String email, String password, List<Measurement> measurements) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.measurements = measurements;
+    }
 
     public int getId() {
         return id;
