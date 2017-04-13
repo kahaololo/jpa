@@ -7,29 +7,32 @@
     <context:annotation-config/>
     <context:component-scan base-package="ua.pp.kaha"/>
 
-    <!--<bean id="key" class="io.jsonwebtoken.impl.crypto.MacProvider" factory-method="generateKey"></bean>-->
+    <bean id="key" class="io.jsonwebtoken.impl.crypto.MacProvider" factory-method="generateKey"></bean>
 
 
-    <!--<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">-->
-        <!--<property name="jndiName" value="jdbc/ds"/>-->
-    <!--</bean>-->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="jdbc/ds"/>
+    </bean>
 
-    <!--<bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="changeLog" value="file:src/main/java/ua/pp/kaha/db/liquibase.xml"/>-->
-        <!--<property name="contexts" value="master"/>-->
-    <!--</bean>-->
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="changeLog" value="file:src/main/java/ua/pp/kaha/db/liquibase.xml"/>
+        <property name="contexts" value="master"/>
+    </bean>
 
-    <!--<bean id="hibernateSessionFactory"-->
-          <!--class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" depends-on="liquibase">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="annotatedClasses">-->
-            <!--<list>-->
-                <!--<value>ua.pp.kaha.domain.Measurement</value>-->
-                <!--<value>ua.pp.kaha.domain.User</value>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean id="hibernateSessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" depends-on="liquibase">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>ua.pp.kaha.domain.Measurement</value>
+                <value>ua.pp.kaha.domain.User</value>
+            </list>
+        </property>
+    </bean>
 
+    <bean id="userDao" class="ua.pp.kaha.dao.HibernateUserDAO">
+        <constructor-arg name="sessionFactory" ref="hibernateSessionFactory" />
+    </bean>
 
 </beans>

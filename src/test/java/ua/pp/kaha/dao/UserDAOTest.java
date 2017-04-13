@@ -3,6 +3,7 @@ package ua.pp.kaha.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ua.pp.kaha.domain.User;
@@ -21,11 +22,8 @@ public class UserDAOTest {
     UserDAO userDao;
 
     @Test
+    @Rollback(true)
     public void userCanBeRegistred() {
-
-//        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test-context.xml");
-//
-//        UserDAO userDao = (UserDAO) context.getBean("userDao");
 
         User user = new User("Sergii Kokhanenko", "kokhanenko.s@gmail.com", "password");
 
