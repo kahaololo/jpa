@@ -3,6 +3,7 @@ package ua.pp.kaha.domain;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by skokhanenko on 14.11.2016.
@@ -13,12 +14,12 @@ public class MeasurementId implements Serializable {
     private int userId;
 
     @Column(name = "dt")
-    private long date;
+    private Date date;
 
     public MeasurementId() {
     }
 
-    public MeasurementId(int userId, long date) {
+    public MeasurementId(int userId, Date date) {
         this.userId = userId;
         this.date = date;
     }
@@ -31,11 +32,11 @@ public class MeasurementId implements Serializable {
         this.userId = userId;
     }
 
-    public long getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -56,7 +57,7 @@ public class MeasurementId implements Serializable {
     @Override
     public int hashCode() {
         int result = userId;
-        result = 31 * result + (int) (date ^ (date >>> 32));
+        result = 31 * result + date.hashCode();
         return result;
     }
 

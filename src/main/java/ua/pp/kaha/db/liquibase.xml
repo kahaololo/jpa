@@ -3,5 +3,7 @@
 
     <include relativeToChangelogFile="true" file="changelog/db.changelog-1.0-Users_Table.xml"/>
     <include relativeToChangelogFile="true" file="changelog/db.changelog-1.1-Insert_User.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/db.changelog-2.0-Measurement_Table.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/db.changelog-2.1-Add_measurements.xml"/>
 
 </databaseChangeLog>

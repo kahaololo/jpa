@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * Created by skokhanenko on 28.10.2016.
@@ -23,7 +24,7 @@ public class Measurement {
     public Measurement() {
     }
 
-    public Measurement(int userId, long date, int waist, int weight) {
+    public Measurement(int userId, Date date, int waist, int weight) {
         this.measurementId = new MeasurementId(userId, date);
         this.waist = waist;
         this.weight = weight;

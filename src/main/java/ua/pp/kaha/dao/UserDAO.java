@@ -1,7 +1,10 @@
 package ua.pp.kaha.dao;
 
+import ua.pp.kaha.domain.User;
+
 /**
- * Created by skokhanenko on 17.02.2017.
+ * Created by skokhanenko on 13.04.2017.
  */
-public class UserDAO {
+public interface UserDAO {
+    User register(User user);
 }

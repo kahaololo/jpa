@@ -1,0 +1,14 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet id="changelog-2.0" author="kaha" context="master">
+        <createTable tableName="Measurements">
+            <column name="user_id" type="integer"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="dt" type="date"><constraints primaryKey="true" nullable="false"></constraints></column>
+            <column name="weight" type="int not null"/>
+            <column name="waist" type="int not null"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,12 +1,7 @@
 package ua.pp.kaha.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateOperations;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import ua.pp.kaha.anotations.Secured;
-import ua.pp.kaha.dao.IMeasurementDAO;
 import ua.pp.kaha.domain.Measurement;
-import ua.pp.kaha.domain.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -30,8 +25,8 @@ public class MeasurementsService {
 //    @Autowired
 //    IMeasurementDAO measurementDAO;
 
-    @Autowired
-    HibernateOperations hibernate;
+//    @Autowired
+//    IMeasurementDAO measurementDAO;
 
     @GET
     @Path("/measurements")
@@ -67,24 +62,6 @@ public class MeasurementsService {
         Map<String,String> rs = new HashMap<String,String>();
 
         return rs;
-    }
-
-    @GET
-    @Path("/get_users")
-    @Produces(MediaType.TEXT_HTML)
-    public String getUsers() throws Exception {
-        User user = hibernate.get(User.class, 1);
-        return user != null ? user.toString() : "not found";
-    }
-
-    @GET
-    @Path("/add_user")
-    @Produces(MediaType.TEXT_HTML)
-    public String addUser() {
-        User user = new User(1, "first", "email", "12", new ArrayList<>());
-
-        hibernate.save(user);
-        return "ok";
     }
 
 }

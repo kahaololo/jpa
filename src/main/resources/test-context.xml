@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="testDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="testOnBorrow" value="true"/>
+        <property name="url" value="jdbc:h2:./jpa-test"/>
+        <property name="maxActive" value="5"/>
+        <property name="maxIdle" value="5"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="testDataSource">
+        <property name="contexts" value="master,test"/>
+        <property name="dataSource" ref="testDataSource"/>
+        <property name="changeLog" value="file:src/main/java/ua/pp/kaha/db/liquibase.xml"/>
+    </bean>
+
+    <bean id="hibernateSessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" depends-on="liquibase">
+        <property name="dataSource" ref="testDataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>ua.pp.kaha.domain.Measurement</value>
+                <value>ua.pp.kaha.domain.User</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="userDao" class="ua.pp.kaha.dao.HibernateUserDAO" depends-on="hibernateSessionFactory">
+        <constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
+    </bean>
+</beans>

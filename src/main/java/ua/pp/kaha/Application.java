@@ -4,7 +4,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import ua.pp.kaha.filters.AuthenticationFilter;
-import ua.pp.kaha.services.AuthenticationService;
+import ua.pp.kaha.services.UserService;
 import ua.pp.kaha.services.MeasurementsService;
 
 /**
@@ -15,7 +15,7 @@ public class Application extends ResourceConfig {
     public Application() {
         register(AuthenticationFilter.class);
         register(MeasurementsService.class);
-        register(AuthenticationService.class);
+        register(UserService.class);
         register(JacksonFeature.class);
 
         packages("ua.pp.kaha");
