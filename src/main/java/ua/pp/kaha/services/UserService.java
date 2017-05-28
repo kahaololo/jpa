@@ -1,6 +1,8 @@
 package ua.pp.kaha.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import ua.pp.kaha.dao.HibernateUserDAO;
+import ua.pp.kaha.dao.UserDAO;
 import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.Token;
 import ua.pp.kaha.domain.User;
@@ -19,15 +21,17 @@ import java.util.Date;
  * Created by kaha on 15.02.2017.
  */
 
-@Path("/authentication")
 public class UserService {
 
     @Autowired
     Key key;
+    @Autowired
+    UserDAO userDAO;
 
     @POST
     @Produces("application/json")
     @Consumes("application/json")
+    @Path("/authenticate")
     public Response authenticateUser(Credentials credentials) {
 
         try {
@@ -49,16 +53,14 @@ public class UserService {
     @POST
     @Produces("application/json")
     @Consumes("application/json")
+    @Path("/register")
     public Response registerNewUser(User user) {
         return null;
     }
 
     private void authenticate(Credentials credentials) throws Exception {
-        // Authenticate against a database, LDAP, file or whatever
-        // Throw an Exception if the credentials are invalid
-        if (credentials == null || credentials.getEmail() == null || credentials.getPassword() == null)
+        if (credentials == null || credentials.getEmail() == null || credentials.getPassword() == null || ! userDAO.areCredentialsValid(credentials))
             throw new Exception("Incorrect username or password");
-
 
     }
 

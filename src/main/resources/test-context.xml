@@ -6,12 +6,20 @@
 
     <tx:annotation-driven/>
 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+
     <bean id="testDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="testOnBorrow" value="true"/>
         <property name="url" value="jdbc:h2:./jpa-test"/>
         <property name="maxActive" value="5"/>
         <property name="maxIdle" value="5"/>
-        <property name="defaultAutoCommit" value="true"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="testDataSource"></property>
     </bean>
 
     <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase" depends-on="testDataSource">
@@ -40,4 +48,5 @@
     <bean id="userDao" class="ua.pp.kaha.dao.HibernateUserDAO" depends-on="hibernateSessionFactory">
         <constructor-arg name="sessionFactory" ref="hibernateSessionFactory"/>
     </bean>
+
 </beans>

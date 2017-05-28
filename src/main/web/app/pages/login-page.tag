@@ -80,17 +80,15 @@
                 statusCode: {
                     401: function(response) {
                         console.log(response);
-//                        displayError("wrongPasswordMessage", response.responseText);
+                        displayError("wrongPasswordMessage", response.responseText);
                     }
                 }
             });
 
             request.done(function(rs) {
                 tag.opts.authService.login(rs.authToken, rs.expires, save);
+                route('welcome');
             });
-
-
-//            route('welcome');
         }
     </script>
 </login-page>

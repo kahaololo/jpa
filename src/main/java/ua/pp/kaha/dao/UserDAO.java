@@ -1,5 +1,6 @@
 package ua.pp.kaha.dao;
 
+import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.User;
 
 /**
@@ -7,4 +8,5 @@ import ua.pp.kaha.domain.User;
  */
 public interface UserDAO {
     User register(User user);
+    boolean areCredentialsValid(Credentials credentials);
 }

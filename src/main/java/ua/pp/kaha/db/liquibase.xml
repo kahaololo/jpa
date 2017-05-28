@@ -3,7 +3,9 @@
 
     <include relativeToChangelogFile="true" file="changelog/db.changelog-1.0-Users_Table.xml"/>
     <include relativeToChangelogFile="true" file="changelog/db.changelog-1.1-Insert_User.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/db.changelog-1.2-Insert_Valid_User.xml"/>
     <include relativeToChangelogFile="true" file="changelog/db.changelog-2.0-Measurement_Table.xml"/>
     <include relativeToChangelogFile="true" file="changelog/db.changelog-2.1-Add_measurements.xml"/>
+    <include relativeToChangelogFile="true" file="changelog/db.changelog-3.0-Users_add_unique_email_constraint.xml"/>
 
 </databaseChangeLog>

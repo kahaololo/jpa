@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "Users")
 public class User implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
