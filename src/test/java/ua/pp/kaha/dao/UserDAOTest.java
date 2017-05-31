@@ -5,16 +5,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.User;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by skokhanenko on 13.04.2017.
@@ -22,7 +19,6 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:test-context.xml"})
-@Transactional
 public class UserDAOTest {
 
     @Autowired
@@ -30,6 +26,7 @@ public class UserDAOTest {
 
     @Test
     @Rollback(true)
+    @Transactional
     public void userCanBeRegistred() {
 
         User user = new User("Sergii Kokhanenko", "newUser@gmail.com", "password");
@@ -41,6 +38,7 @@ public class UserDAOTest {
     }
 
     @Test
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public void verifyUserCredentials() {
         Credentials invalidCredentials = new Credentials();
         Credentials validCredentials = new Credentials("kokhanenko.s@gmail.com", "verySecretPassword");
