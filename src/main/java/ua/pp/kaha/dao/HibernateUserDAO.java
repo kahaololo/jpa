@@ -4,8 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import ua.pp.kaha.domain.Credentials;
-import ua.pp.kaha.domain.User;
+import ua.pp.kaha.model.Credentials;
+import ua.pp.kaha.model.User;
 import ua.pp.kaha.utils.CommonUtils;
 
 /**

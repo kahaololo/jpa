@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.kaha.dao.UserDAO;
-import ua.pp.kaha.domain.Credentials;
-import ua.pp.kaha.domain.Token;
+import ua.pp.kaha.model.Credentials;
+import ua.pp.kaha.model.Token;
 import ua.pp.kaha.utils.TokenUtil;
 
 import javax.ws.rs.Consumes;

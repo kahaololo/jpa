@@ -25,8 +25,8 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>ua.pp.kaha.domain.Measurement</value>
-                <value>ua.pp.kaha.domain.User</value>
+                <value>ua.pp.kaha.model.Measurement</value>
+                <value>ua.pp.kaha.model.User</value>
             </list>
         </property>
     </bean>

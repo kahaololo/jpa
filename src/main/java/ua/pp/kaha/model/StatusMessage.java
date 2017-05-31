@@ -1,4 +1,4 @@
-package ua.pp.kaha.domain;
+package ua.pp.kaha.model;
 
 import java.io.Serializable;
 

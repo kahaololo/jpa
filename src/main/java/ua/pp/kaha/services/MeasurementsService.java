@@ -1,7 +1,7 @@
 package ua.pp.kaha.services;
 
 import ua.pp.kaha.anotations.Secured;
-import ua.pp.kaha.domain.Measurement;
+import ua.pp.kaha.model.Measurement;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;

@@ -1,7 +1,7 @@
 package ua.pp.kaha.dao;
 
-import ua.pp.kaha.domain.Credentials;
-import ua.pp.kaha.domain.User;
+import ua.pp.kaha.model.Credentials;
+import ua.pp.kaha.model.User;
 
 /**
  * Created by skokhanenko on 13.04.2017.

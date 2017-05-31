@@ -8,8 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.pp.kaha.domain.Credentials;
-import ua.pp.kaha.domain.User;
+import ua.pp.kaha.model.Credentials;
+import ua.pp.kaha.model.User;
 
 import static org.junit.Assert.*;
 
