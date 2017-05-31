@@ -1,11 +1,11 @@
 package ua.pp.kaha.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ua.pp.kaha.dao.HibernateUserDAO;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.pp.kaha.dao.UserDAO;
 import ua.pp.kaha.domain.Credentials;
 import ua.pp.kaha.domain.Token;
-import ua.pp.kaha.domain.User;
 import ua.pp.kaha.utils.TokenUtil;
 
 import javax.ws.rs.Consumes;
@@ -25,6 +25,7 @@ public class UserService {
 
     @Autowired
     Key key;
+
     @Autowired
     UserDAO userDAO;
 
@@ -32,6 +33,7 @@ public class UserService {
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/authenticate")
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
     public Response authenticateUser(Credentials credentials) {
 
         try {
@@ -54,7 +56,9 @@ public class UserService {
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/register")
-    public Response registerNewUser(User user) {
+    @Transactional
+    public Response registerNewUser(Credentials credentials) {
+
         return null;
     }
 
