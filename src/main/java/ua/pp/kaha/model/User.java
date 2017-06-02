@@ -1,6 +1,7 @@
 package ua.pp.kaha.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,10 +17,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull(message = "User name cannot be empty")
     private String name;
 
+    @NotNull(message = "User email cannot be empty")
     private String email;
 
+    @NotNull(message = "User password cannot be empty")
     private String password;
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)

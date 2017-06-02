@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.kaha.dao.UserDAO;
 import ua.pp.kaha.model.Credentials;
 import ua.pp.kaha.model.Token;
+import ua.pp.kaha.model.User;
+import ua.pp.kaha.utils.CommonUtils;
 import ua.pp.kaha.utils.TokenUtil;
 
 import javax.ws.rs.Consumes;
@@ -21,6 +23,7 @@ import java.util.Date;
  * Created by kaha on 15.02.2017.
  */
 
+@Path("/user")
 public class UserService {
 
     @Autowired
@@ -57,15 +60,32 @@ public class UserService {
     @Consumes("application/json")
     @Path("/register")
     @Transactional
-    public Response registerNewUser(Credentials credentials) {
+    public Response registerNewUser(User user) {
 
-        return null;
+        user.setEmail(null);
+
+        return Response.ok().build();
     }
 
     private void authenticate(Credentials credentials) throws Exception {
-        if (credentials == null || credentials.getEmail() == null || credentials.getPassword() == null || ! userDAO.areCredentialsValid(credentials))
+        if (credentials == null ||
+                credentials.getEmail() == null ||
+                credentials.getPassword() == null ||
+                ! areCredentialsValid(credentials))
             throw new Exception("Incorrect username or password");
+    }
 
+    private void newUserIsValid(User user) throws Exception {
+        if (user == null)
+            throw new Exception("Validation error");
+        if (user.getEmail() == null)
+            throw new Exception("Email could not be empty");
+        if (user.getPassword() == null)
+            throw new Exception("Password could not be empty");
+        if (user.getName() == null)
+            throw new Exception("UserName could not be empty");
+        if (userDAO.getUserByEmail(user.getEmail()) != null)
+            throw new Exception("Email already exists");
     }
 
     private Date getExpiryDate(int minutes) {
@@ -74,5 +94,12 @@ public class UserService {
         calendar.add(Calendar.MINUTE, minutes);
         return calendar.getTime();
     }
+
+
+    private boolean areCredentialsValid(Credentials credentials) {
+        User user = userDAO.getUserByEmail(credentials.getEmail());
+        return user != null && user.getPassword().equals(CommonUtils.getSHA256String(credentials.getPassword()));
+    }
+
 }
 

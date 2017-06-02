@@ -8,10 +8,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.pp.kaha.model.Credentials;
 import ua.pp.kaha.model.User;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * Created by skokhanenko on 13.04.2017.
@@ -39,12 +39,9 @@ public class UserDAOTest {
 
     @Test
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-    public void verifyUserCredentials() {
-        Credentials invalidCredentials = new Credentials();
-        Credentials validCredentials = new Credentials("kokhanenko.s@gmail.com", "verySecretPassword");
-
-        assertFalse(userDao.areCredentialsValid(invalidCredentials));
-        assertTrue(userDao.areCredentialsValid(validCredentials));
+    public void findUser() {
+        assertNotNull(userDao.getUserByEmail("kokhanenko.s@gmail.com"));
+        assertNull(userDao.getUserByEmail("unique@email.address"));
     }
 
 }

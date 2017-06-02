@@ -1,6 +1,5 @@
 package ua.pp.kaha.dao;
 
-import ua.pp.kaha.model.Credentials;
 import ua.pp.kaha.model.User;
 
 /**
@@ -8,5 +7,6 @@ import ua.pp.kaha.model.User;
  */
 public interface UserDAO {
     User register(User user);
-    boolean areCredentialsValid(Credentials credentials);
+
+    User getUserByEmail(String email);
 }

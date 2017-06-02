@@ -18,6 +18,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li if={ ! this.isLoggedIn }><a href="#login">Sign In</a></li>
+                    <li if={ ! this.isLoggedIn }><a href="#register">Register</a></li>
                     <li if={ this.isLoggedIn }><a href="#logout">Logout</a></li>
                 </ul>
             </div>

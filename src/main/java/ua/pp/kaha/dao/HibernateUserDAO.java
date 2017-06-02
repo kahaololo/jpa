@@ -4,9 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import ua.pp.kaha.model.Credentials;
 import ua.pp.kaha.model.User;
-import ua.pp.kaha.utils.CommonUtils;
 
 /**
  * Created by skokhanenko on 13.04.2017.
@@ -28,11 +26,12 @@ public class HibernateUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean areCredentialsValid(Credentials credentials) {
+    public User getUserByEmail(String email) {
         Criteria userCreteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-        userCreteria.add(Restrictions.eq("email", credentials.getEmail()));
-        User user = (User) userCreteria.uniqueResult();
+        userCreteria.add(Restrictions.eq("email", email));
 
-        return user != null && user.getPassword().equals(CommonUtils.getSHA256String(credentials.getPassword()));
+        return (User) userCreteria.uniqueResult();
     }
+
+
 }

@@ -72,7 +72,7 @@
 
             var request = $.ajax({
                 method: "POST",
-                url: "/rest/authentication",
+                url: "/rest/user/authenticate",
                 dataType: 'json',
                 processData: false,
                 contentType: "application/json",
