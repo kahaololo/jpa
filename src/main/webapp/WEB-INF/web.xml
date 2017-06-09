@@ -9,18 +9,16 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 
     <servlet>
         <servlet-name>jersey-serlvet</servlet-name>
-        <servlet-class>
-            org.glassfish.jersey.servlet.ServletContainer
-        </servlet-class>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>
-                ua.pp.kaha
-            </param-value>
+            <param-value>ua.pp.kaha</param-value>
         </init-param>
         <init-param>
             <param-name>jersey.config.server.response.setStatusOverSendError</param-name>

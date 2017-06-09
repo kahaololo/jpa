@@ -7,16 +7,16 @@
         <Arg>jdbc/ds</Arg>
         <Arg>
             <New class="org.apache.commons.dbcp.BasicDataSource">
-                <Set name="testOnBorrow">true</Set>
+                <!--<Set name="testOnBorrow">true</Set>-->
                 <Set name="url">jdbc:h2:./jpa;AUTO_SERVER=TRUE;USER=sa;PASSWORD=sa</Set>
                 <Set name="maxActive">5</Set>
                 <Set name="maxIdle">5</Set>
-                <Set name="defaultAutoCommit">true</Set>
+                <Set name="defaultAutoCommit">false</Set>
             </New>
         </Arg>
     </New>
 
-    <Call class="org.eclipse.jetty.util.log.Log" name="info">
+    <Call class="org.eclipse.jetty.util.log.Log" name="debug">
         <Arg>Processed jetty-web.xml</Arg>
     </Call>
 </Configure>

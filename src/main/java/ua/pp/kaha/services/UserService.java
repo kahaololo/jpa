@@ -1,9 +1,11 @@
 package ua.pp.kaha.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.kaha.dao.UserDAO;
+import ua.pp.kaha.exception.CustomValidationException;
 import ua.pp.kaha.model.Credentials;
 import ua.pp.kaha.model.Token;
 import ua.pp.kaha.model.User;
@@ -23,14 +25,15 @@ import java.util.Date;
  * Created by kaha on 15.02.2017.
  */
 
+@Component
 @Path("/user")
 public class UserService {
 
     @Autowired
-    Key key;
+    private Key key;
 
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDao;
 
     @POST
     @Produces("application/json")
@@ -43,9 +46,9 @@ public class UserService {
             // Authenticate the user using the credentials provided
             authenticate(credentials);
 
-            Date expiryDate = getExpiryDate(86400);
-            String JWTString = TokenUtil.getJWTString(credentials.getEmail(), expiryDate, key);
-            Token token = new Token();
+            Date   expiryDate = getExpiryDate(86400);
+            String JWTString  = TokenUtil.getJWTString(credentials.getEmail(), expiryDate, key);
+            Token  token      = new Token();
             token.setAuthToken(JWTString);
             token.setExpires(expiryDate);
 
@@ -60,9 +63,11 @@ public class UserService {
     @Consumes("application/json")
     @Path("/register")
     @Transactional
-    public Response registerNewUser(User user) {
+    public Response registerNewUser(User user) throws CustomValidationException{
+        validateNewUser(user);
 
-        user.setEmail(null);
+
+        userDao.register(user);
 
         return Response.ok().build();
     }
@@ -71,21 +76,21 @@ public class UserService {
         if (credentials == null ||
                 credentials.getEmail() == null ||
                 credentials.getPassword() == null ||
-                ! areCredentialsValid(credentials))
+                !areCredentialsValid(credentials))
             throw new Exception("Incorrect username or password");
     }
 
-    private void newUserIsValid(User user) throws Exception {
+    private void validateNewUser(User user) throws CustomValidationException {
         if (user == null)
-            throw new Exception("Validation error");
+            throw new CustomValidationException("Validation error");
         if (user.getEmail() == null)
-            throw new Exception("Email could not be empty");
+            throw new CustomValidationException("Email could not be empty");
         if (user.getPassword() == null)
-            throw new Exception("Password could not be empty");
+            throw new CustomValidationException("Password could not be empty");
         if (user.getName() == null)
-            throw new Exception("UserName could not be empty");
-        if (userDAO.getUserByEmail(user.getEmail()) != null)
-            throw new Exception("Email already exists");
+            throw new CustomValidationException("UserName could not be empty");
+        if (userDao.getUserByEmail(user.getEmail()) != null)
+            throw new CustomValidationException("Email already exists");
     }
 
     private Date getExpiryDate(int minutes) {
@@ -97,7 +102,7 @@ public class UserService {
 
 
     private boolean areCredentialsValid(Credentials credentials) {
-        User user = userDAO.getUserByEmail(credentials.getEmail());
+        User user = userDao.getUserByEmail(credentials.getEmail());
         return user != null && user.getPassword().equals(CommonUtils.getSHA256String(credentials.getPassword()));
     }
 

@@ -82,14 +82,14 @@
                 contentType: "application/json",
                 data: JSON.stringify( formData ),
                 statusCode: {
-                    401: function(response) {
-                        console.log(response);
-                        Utils.notify("danger", response.responseText);
-                    },
                     200: function (rs) {
                         console.log('welcome');
                         route('welcome');
-                    }
+                    },
+                    400: function(response) {
+                        console.log(response);
+                        Utils.notify("danger", response.responseText);
+                    },
                 },
             });
         }
