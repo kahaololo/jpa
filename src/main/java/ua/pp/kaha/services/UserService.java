@@ -12,10 +12,8 @@ import ua.pp.kaha.model.User;
 import ua.pp.kaha.utils.CommonUtils;
 import ua.pp.kaha.utils.TokenUtil;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.security.Key;
 import java.util.Calendar;
@@ -34,6 +32,23 @@ public class UserService {
 
     @Autowired
     private UserDAO userDao;
+
+    @POST
+    @Produces("application/json")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Path("/lookup")
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public Response lookUpUser(@FormParam("email") String email) throws CustomValidationException {
+
+        User user = userDao.getUserByEmail(email);
+
+        if (user == null)
+            throw new CustomValidationException("User not found");
+
+
+        return Response.ok(user).build();
+    }
+
 
     @POST
     @Produces("application/json")
@@ -63,7 +78,7 @@ public class UserService {
     @Consumes("application/json")
     @Path("/register")
     @Transactional
-    public Response registerNewUser(User user) throws CustomValidationException{
+    public Response registerNewUser(User user) throws CustomValidationException {
         validateNewUser(user);
 
 

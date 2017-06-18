@@ -1,63 +1,40 @@
 <login-page>
     <div class="container">
 
-        <form class="form-signin" id="loginForm" onsubmit={submit}>
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" ref="email" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" ref="password" required>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="save" ref="save"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <form onsubmit="{logIn}">
+            <input placeholder="Please enter your password" type="password" ref="password" required/> &nbsp;
+            <input type="submit" value="go!">
+            <br>
+            <input type="checkbox">
         </form>
 
     </div>
     <!-- /container -->
     <style>
-        .form-signin {
-            max-width: 330px;
-            padding: 15px;
-            margin: 0 auto;
+        input[type="password"] {
+            outline: 0;
+            border-width: 0 0 2px 0;
+            border-color: blue
         }
 
-        .form-signin .form-signin-heading,
-        .form-signin .checkbox {
-            margin-bottom: 10px;
+        input[type="password"]:focus {
+            border-color: green
         }
 
-        .form-signin .checkbox {
-            font-weight: normal;
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14);
         }
 
-        .form-signin .form-control {
-            position: relative;
-            height: auto;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .form-signin .form-control:focus {
-            z-index: 2;
-        }
-
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+        /* Add a hover effect for buttons */
+        input[type="submit"] {
+            opacity: 0.8;
         }
     </style>
 
@@ -68,7 +45,7 @@
 
             let save = tag.refs.save.checked ? 1 : 0;
 
-            let formData = $('#loginForm').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+//            let formData = $('#loginForm').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
 
             var request = $.ajax({
                 method: "POST",
