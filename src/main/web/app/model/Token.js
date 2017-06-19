@@ -12,17 +12,17 @@ Token.prototype.save = function (storage) {
 
     storage.setItem("key", this._key);
     storage.setItem("date", this._expiresAt);
-}
+};
 
 Token.prototype.key = function(key) {
-    if (arguments.length == 0)
+    if (arguments.length != 0)
         this._key = key;
 
     return this._key;
 };
 
 Token.prototype.expiresAt = function(date) {
-    if (arguments.length == 0)
+    if (arguments.length != 0)
         this._expiresAt = date;
 
     return this._expiresAt;

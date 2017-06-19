@@ -84,7 +84,7 @@ public class UserService {
 
         userDao.register(user);
 
-        return Response.ok().build();
+        return Response.ok("User successfully created").build();
     }
 
     private void authenticate(Credentials credentials) throws Exception {

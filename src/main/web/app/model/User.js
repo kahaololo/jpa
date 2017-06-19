@@ -7,7 +7,6 @@ function User(name, email, token) {
 User.prototype.save = function (storage) {
     if (! storage)
         return false;
-
     storage.setItem("name", this._name);
     storage.setItem("email", this._email);
     this._token.save(storage);

@@ -33,7 +33,7 @@
                 } ),
                 statusCode: {
                     401: function(response) {
-                        Utils.notify("danger", response.responseText);
+                        Utils.notify("warning", response.responseText);
                     }
                 }
             });

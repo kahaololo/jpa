@@ -9,7 +9,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#welcome">Welcome into measurement control system</a>
+                <span if={ ! this.isLoggedIn } class="navbar-brand" >Welcome into measurement control system</span>
+                <span if={ this.isLoggedIn } class="navbar-brand">Hi {this.userName}</span>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul if={ this.isLoggedIn } class="nav navbar-nav">
@@ -17,8 +18,6 @@
                     <li><a href="#results">Results</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li if={ ! this.isLoggedIn }><a href="#login">Sign In</a></li>
-                    <li if={ ! this.isLoggedIn }><a href="#register">Register</a></li>
                     <li if={ this.isLoggedIn }><a href="#logout">Logout</a></li>
                 </ul>
             </div>
@@ -26,9 +25,13 @@
     </nav>
 
     <script>
+        let authService = this.opts.authService;
+
         let tag = this;
-        tag.userName = opts.userName;
-        tag.isLoggedIn = opts.isLoggedIn || false;
+
+        tag.isLoggedIn = authService.isUserLoggedIn() || false;
+
+        tag.userName = authService.getUser().name();
 
         tag.opts.observable.on("logIn", function () {
             tag.isLoggedIn = true;

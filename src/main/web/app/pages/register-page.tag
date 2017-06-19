@@ -5,13 +5,16 @@
             <h3 class="form-register-heading">Please fill form</h3>
 
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" ref="email" required autofocus>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
+                   ref="email" required autofocus>
 
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" ref="password" required>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
+                   ref="password" required>
 
             <label for="inputUserName" class="sr-only">User Name</label>
-            <input type="text" name="name" id="inputUserName" class="form-control" placeholder="username" ref="username" required>
+            <input type="text" name="name" id="inputUserName" class="form-control" placeholder="username" ref="username"
+                   required>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
         </form>
@@ -69,10 +72,13 @@
 
     <script>
         let tag = this;
-        tag.submit = function(e) {
+        tag.submit = function (e) {
             e.preventDefault();
 
-            let formData = $('#registerForm').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
+            let formData = $('#registerForm').serializeArray().reduce(function (a, x) {
+                a[x.name] = x.value;
+                return a;
+            }, {});
 
             $.ajax({
                 method: "POST",
@@ -80,14 +86,17 @@
                 dataType: 'json',
                 processData: false,
                 contentType: "application/json",
-                data: JSON.stringify( formData ),
+                data: JSON.stringify(formData),
                 statusCode: {
                     200: function (rs) {
-                        route('welcome');
+                        setTimeout(function () {
+                            route('welcome');
+                        }, 1000);
+                        Utils.notify("success", rs.responseText);
                     },
-                    400: function(response) {
-                        console.log(response);
-                        Utils.notify("danger", response.responseText);
+                    400: function (rs) {
+                        console.log(rs);
+                        Utils.notify("danger", rs.responseText);
                     },
                 },
             });
