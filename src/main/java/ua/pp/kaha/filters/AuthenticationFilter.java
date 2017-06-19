@@ -35,35 +35,35 @@ public class AuthenticationFilter implements ContainerRequestFilter {
                 requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
         // Check if the HTTP Authorization header is present and formatted correctly
-//        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-//            requestContext.abortWith(Response
-//                    .status(Response.Status.UNAUTHORIZED)
-//                    .entity("User cannot access the resource.")
-//                    .build());
-//            return;
-//        }
-//
-//        // Extract the token from the HTTP Authorization header
-//        String token = authorizationHeader.substring("Bearer".length()).trim();
-//
-//        try {
-//
-//            // Validate the token
-//            if (!TokenUtil.isValid(token, key))
-//                throw new Exception("Token is invalid");
-//
-//            SecurityContext originalContext = requestContext.getSecurityContext();
-//            Set<String> roles = new HashSet<>();
-//            roles.add("ADMIN");
-//            Authorizer authorizer = new Authorizer(roles, TokenUtil.getName(token, key),
-//                    originalContext.isSecure());
-//            requestContext.setSecurityContext(authorizer);
-//
-//        } catch (Exception e) {
-//            requestContext.abortWith(
-//                    Response.status(Response.Status.UNAUTHORIZED).entity("wrong username or password").build()
-//            );
-//        }
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            requestContext.abortWith(Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .entity("User cannot access the resource.")
+                    .build());
+            return;
+        }
+
+        // Extract the token from the HTTP Authorization header
+        String token = authorizationHeader.substring("Bearer".length()).trim();
+
+        try {
+
+            // Validate the token
+            if (!TokenUtil.isValid(token, key))
+                throw new Exception("Token is invalid");
+
+            SecurityContext originalContext = requestContext.getSecurityContext();
+            Set<String> roles = new HashSet<>();
+            roles.add("ADMIN");
+            Authorizer authorizer = new Authorizer(roles, TokenUtil.getName(token, key),
+                    originalContext.isSecure());
+            requestContext.setSecurityContext(authorizer);
+
+        } catch (Exception e) {
+            requestContext.abortWith(
+                    Response.status(Response.Status.UNAUTHORIZED).entity("wrong username or password").build()
+            );
+        }
 
     }
 
