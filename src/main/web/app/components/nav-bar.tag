@@ -9,8 +9,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <span if={ ! this.isLoggedIn } class="navbar-brand" >Welcome into measurement control system</span>
-                <span if={ this.isLoggedIn } class="navbar-brand">Hi {this.userName}</span>
+                <a if={ ! this.isLoggedIn } href="#welcome" class="navbar-brand" >Welcome into measurement control system</a>
+                <a if={ this.isLoggedIn } href="#welcome" class="navbar-brand">Hi {this.userName}</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul if={ this.isLoggedIn } class="nav navbar-nav">
@@ -35,6 +35,7 @@
 
         tag.opts.observable.on("logIn", function () {
             tag.isLoggedIn = true;
+            tag.userName = authService.getUser().name();
             tag.update();
         });
 
