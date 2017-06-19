@@ -4,39 +4,32 @@
 class AuthService {
     constructor(obs) {
         this.observable = obs;
-        this.token = new Token();
-        $.ajaxSetup({headers: { 'Authorization': this.token.key() }});
+        this.user = new User();
+        $.ajaxSetup({headers: { 'Authorization': this.user.token().key() }});
     }
 
     isUserLoggedIn() {
-        return this.token.isValid();
+        return this.user.token().isValid();
     }
 
     login(key, date, save) {
-        this.token = new Token(key, date);
+        this.user.token(new Token(key, date));
 
         var storage = save ? localStorage : sessionStorage;
 
-        storage.setItem("key", key);
-        storage.setItem("date", date);
-
+        user.save(storage);
 
         this.observable.trigger("logIn");
     }
 
     logout() {
-        this.token.erase();
-
-        [localStorage, sessionStorage].forEach(function(storage){
-            storage.removeItem("key");
-            storage.removeItem("date");
-        });
+        this.user.destroy();
 
         this.observable.trigger("logOut");
     }
 
     getUserName() {
-        return this.token.getUserName();
+        return this.user.username();
     }
 
 }

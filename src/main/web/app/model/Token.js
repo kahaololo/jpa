@@ -4,12 +4,15 @@
 function Token(key, expiresAt) {
     this._key = key || sessionStorage.getItem("key") || localStorage.getItem("key") || null;
     this._expiresAt = expiresAt || sessionStorage.getItem("date") || localStorage.getItem("date") || null;
-    this._userName = "Kaha";
 }
 
-Token.prototype.getUserName = function() {
-    return this._userName;
-};
+Token.prototype.save = function (storage) {
+    if (! storage)
+        return false;
+
+    storage.setItem("key", this._key);
+    storage.setItem("date", this._expiresAt);
+}
 
 Token.prototype.key = function(key) {
     if (arguments.length == 0)
@@ -32,4 +35,9 @@ Token.prototype.isValid = function() {
 Token.prototype.erase = function() {
     this._key = null;
     this._expiresAt = null;
+
+    [localStorage, sessionStorage].forEach(function(storage){
+        storage.removeItem("key");
+        storage.removeItem("date");
+    });
 };

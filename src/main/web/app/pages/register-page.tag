@@ -83,7 +83,6 @@
                 data: JSON.stringify( formData ),
                 statusCode: {
                     200: function (rs) {
-                        console.log('welcome');
                         route('welcome');
                     },
                     400: function(response) {
