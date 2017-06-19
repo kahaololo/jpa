@@ -80,7 +80,7 @@ public class UserService {
     @Transactional
     public Response registerNewUser(User user) throws CustomValidationException {
         validateNewUser(user);
-
+        user.hashPassword();
 
         userDao.register(user);
 

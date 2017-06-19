@@ -7,13 +7,44 @@
                 &nbsp;
                 <input type="submit" value="go!">
                 <br>
-                <input class="save" type="checkbox" name="save" id="save">
+                <input class="save" type="checkbox" name="save" ref="save" id="save">
                 <label class="save" for="save">Save on this machine</label>
             </form>
         </div>
 
     </div>
-    <!-- /container -->
+
+    <script>
+        let authService = this.opts.authService;
+        let tag = this;
+        tag.logIn = function(e) {
+            e.preventDefault();
+            let save = tag.refs.save.checked ? 1 : 0;
+
+            var request = $.ajax({
+                method: "POST",
+                url: "/rest/user/authenticate",
+                dataType: 'json',
+                processData: false,
+                contentType: "application/json",
+                data: JSON.stringify( {
+                    email: authService.getUser().email(),
+                    password: tag.refs.password.value
+                } ),
+                statusCode: {
+                    401: function(response) {
+                        Utils.notify("danger", response.responseText);
+                    }
+                }
+            });
+
+            request.done(function(rs) {
+                authService.login(rs.authToken, rs.expires, save);
+                route('welcome');
+            });
+        }
+    </script>
+
     <style>
         div.container {
             padding-top: 25%;
@@ -58,39 +89,6 @@
             padding-top: 2px;
         }
     </style>
-
-    <script>
-        let tag = this;
-        tag.logIn = function(e) {
-            e.preventDefault();
-
-            console.log("login");
-            return false;
-            let save = tag.refs.save.checked ? 1 : 0;
-
-//            let formData = $('#loginForm').serializeArray().reduce(function(a, x) { a[x.name] = x.value; return a; }, {});
-
-            var request = $.ajax({
-                method: "POST",
-                url: "/rest/user/authenticate",
-                dataType: 'json',
-                processData: false,
-                contentType: "application/json",
-                data: JSON.stringify( formData ),
-                statusCode: {
-                    401: function(response) {
-                        console.log(response);
-                        displayError("wrongPasswordMessage", response.responseText);
-                    }
-                }
-            });
-
-            request.done(function(rs) {
-                tag.opts.authService.login(rs.authToken, rs.expires, save);
-                route('welcome');
-            });
-        }
-    </script>
 </login-page>
 
 

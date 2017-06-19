@@ -1,5 +1,7 @@
 package ua.pp.kaha.model;
 
+import ua.pp.kaha.utils.CommonUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -79,6 +81,10 @@ public class User implements Serializable {
         return password;
     }
 
+    public void hashPassword() {
+        password = CommonUtils.getSHA256String(password);
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -91,4 +97,6 @@ public class User implements Serializable {
                 ", measurements=" + measurements +
                 '}';
     }
+
+
 }

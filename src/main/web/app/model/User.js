@@ -1,5 +1,5 @@
-function User(username, email, token) {
-    this._username = username || sessionStorage.getItem("username") || localStorage.getItem("username") || null;
+function User(name, email, token) {
+    this._name = name || sessionStorage.getItem("name") || localStorage.getItem("name") || null;
     this._email = email || sessionStorage.getItem("email") || localStorage.getItem("email") || null;
     this._token = new Token();
 }
@@ -8,25 +8,25 @@ User.prototype.save = function (storage) {
     if (! storage)
         return false;
 
-    storage.setItem("username", this._username);
+    storage.setItem("name", this._name);
     storage.setItem("email", this._email);
-    this.token().save(storage);
+    this._token.save(storage);
 };
 
 User.prototype.destroy = function () {
-    this.user.token().erase();
+    this._token.erase();
 
     [localStorage, sessionStorage].forEach(function(storage){
-        storage.removeItem("username");
+        storage.removeItem("name");
         storage.removeItem("email");
     });
 };
 
-User.prototype.username = function (username) {
+User.prototype.name = function (name) {
     if (arguments.length != 0)
-        this._username = username;
+        this._name = name;
 
-    return this._username;
+    return this._name;
 };
 
 User.prototype.email = function (email) {

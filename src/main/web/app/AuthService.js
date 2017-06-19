@@ -17,19 +17,19 @@ class AuthService {
 
         var storage = save ? localStorage : sessionStorage;
 
-        user.save(storage);
+        this.user.save(storage);
 
         this.observable.trigger("logIn");
+    }
+
+    getUser() {
+        return this.user;
     }
 
     logout() {
         this.user.destroy();
 
         this.observable.trigger("logOut");
-    }
-
-    getUserName() {
-        return this.user.username();
     }
 
 }

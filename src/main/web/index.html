@@ -64,8 +64,7 @@
         const measurementService = new MeasurementService(obs);
         riot.mount('nav-bar, add-measurement', {
             observable: obs,
-            isLoggedIn: authService.isUserLoggedIn(),
-            userName: authService.getUserName(),
+            authService: authService,
             measurementService: measurementService
         });
         route.start(true);

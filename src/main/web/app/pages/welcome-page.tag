@@ -24,9 +24,8 @@
     </div>
 
     <script>
-        this.isLoggedIn = this.opts.isLoggedIn;
-        this.userName = this.opts.userName;
-        this.measurementService = this.opts.measurementService;
+        let authService = this.opts.authService;
+        this.isLoggedIn = authService.isUserLoggedIn();
 
         let tag = this;
 
@@ -44,25 +43,19 @@
                 data: $("#emailForm").serialize(),
                 statusCode: {
                     400: function (response) {
-                        console.log(response);
                         $("#email").css("border-color", "red");
                         Utils.notify("danger", response.responseText);
-//                        show register form
                     }
                 }
             });
 
-            request.done(function (rs) {
+            request.done(function (user) {
+                console.log(user);
 //                welcome user by name
-//                redirect to password form
-                console.log(rs);
+                authService.getUser().email(user.email);
+                authService.getUser().name(user.name);
                 route('login');
             });
-        }
-
-        tag.register = function (e) {
-            e.preventDefault();
-            alert("register called");
         }
     </script>
 
